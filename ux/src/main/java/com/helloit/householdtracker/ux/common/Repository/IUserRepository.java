@@ -1,6 +1,7 @@
 package com.helloit.householdtracker.ux.common.Repository;
 
-import org.hsqldb.rights.User;
+
+import com.helloit.householdtracker.ux.common.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
