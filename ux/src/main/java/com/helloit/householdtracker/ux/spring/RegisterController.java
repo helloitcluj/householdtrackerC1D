@@ -1,9 +1,5 @@
 package com.helloit.householdtracker.ux.spring;
 
-
-//import aron.sinoai.springmvcjpa.common.entities.Shop;
-//import aron.sinoai.springmvcjpa.common.repository.IShopRepository;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -11,16 +7,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-//import org.springframework.stereotype.Service;
-
 
 //@Service
 @Controller
 @RequestMapping("registerRequest")
 public class RegisterController {
 
-//    @Resource
-//  private User shopRepository;
+    //@Resource
+//  private IUserRepository userRepository;
 
     public static final String MESSAGE_PARAMETER_TAG = "message";
     public static final String HELLO_VIEW_TAG = "registerInput";
@@ -32,10 +26,10 @@ public class RegisterController {
     public String printWelcome(final ModelMap model) {
         LOGGER.info("welcome!");
 
-//		  final Shop entity = new Shop();
-//        entity.setName("test");
-//        entity.setEmplNumber(1);
-//        final Shop savedEntity = shopRepository.save(entity);
+//        final User entity = new User();
+//        entity.setUsername("test");
+////        entity.setEmplNumber(1);
+//        final User savedEntity = userRepository.save(entity);
 
         model.addAttribute(MESSAGE_PARAMETER_TAG, SAMPLE_TEXT);
         return HELLO_VIEW_TAG;
