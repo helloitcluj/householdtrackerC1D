@@ -1,4 +1,4 @@
-package com.helloit.householdtracker.ux.common.Entities;
+package com.helloit.householdtracker.ux.common.entities;
 
 import javax.persistence.*;
 

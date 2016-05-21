@@ -1,4 +1,4 @@
-package com.helloit.householdtracker.ux.common.Repository;
+package com.helloit.householdtracker.ux.common.repository;
 
 
 import com.helloit.householdtracker.ux.common.Entities.User;
