@@ -30,7 +30,8 @@ public class RegisterController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(@RequestParam("Pasword") String pasword, final ModelMap model) {
+    public String printWelcome(@RequestParam("Password") String pasword, @RequestParam("Uname") String uname, @RequestParam("ReType") String retype, final ModelMap model) {
+
         LOGGER.info("welcome!");
 
         final User entity = new User();
@@ -38,6 +39,9 @@ public class RegisterController {
         entity.setId(0);
         entity.setPassword(pasword);
         final User savedEntity = userRepository.save(entity);
+
+
+        userRepository.findByNameUserList("test");
 
         model.addAttribute(MESSAGE_PARAMETER_TAG, SAMPLE_TEXT);
         return HELLO_VIEW_TAG;
