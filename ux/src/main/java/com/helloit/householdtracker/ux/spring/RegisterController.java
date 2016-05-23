@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
 
 
 @Service
@@ -19,19 +22,21 @@ public class RegisterController {
 
     public static final String MESSAGE_PARAMETER_TAG = "message";
     public static final String HELLO_VIEW_TAG = "registerInput";
-    public static final String SAMPLE_TEXT = "Hello world!";
+    public static final String SAMPLE_TEXT = "Hello rld!";
     private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
-    //@Resource
+
+    @Resource
     private IUserRepository userRepository;
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(final ModelMap model) {
+    public String printWelcome(@RequestParam("Pasword") String pasword, final ModelMap model) {
         LOGGER.info("welcome!");
 
         final User entity = new User();
         entity.setUsername("test");
-//        entity.setEmplNumber(1);
+        entity.setId(0);
+        entity.setPassword(pasword);
         final User savedEntity = userRepository.save(entity);
 
         model.addAttribute(MESSAGE_PARAMETER_TAG, SAMPLE_TEXT);
