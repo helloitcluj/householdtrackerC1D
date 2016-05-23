@@ -1,7 +1,7 @@
 package com.helloit.householdtracker.ux.spring;
 
-import com.helloit.householdtracker.ux.common.Entities.User;
-import com.helloit.householdtracker.ux.common.Repository.IUserRepository;
+import com.helloit.householdtracker.ux.common.entities.User;
+import com.helloit.householdtracker.ux.common.repository.IUserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
