@@ -12,7 +12,7 @@
 <div align="center" style="margin-top:15%">
     <form action="userLogin" method="post" style="width: 300px">
 
-        <th><h1>Register</h1></th>
+        <th><h1>Login</h1></th>
         <div>
             <div class="col-xs-6">Username</div>
             <div class="col-xs-6"><input type="text" name="Uname"></div>
