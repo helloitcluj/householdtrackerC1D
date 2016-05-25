@@ -10,7 +10,7 @@
 
 
 <div align="center" style="margin-top:15%">
-    <form action="registerRequest" method="post" style="width: 300px">
+    <form action="userRegistration" method="post" style="width: 300px">
 
         <th><h1>Register</h1></th>
         <div>
@@ -27,7 +27,7 @@
         </div>
         <hr>
         <div><input type="submit" value="Submit"></div>
-        <div>($errorMessage)</div>
+        <div>${message}</div>
     </form>
 </div>
 </body>

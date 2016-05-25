@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
 @Controller
-@RequestMapping("registerRequest")
+@RequestMapping("userRegistration")
 public class RegisterController {
 
     public static final String MESSAGE_PARAMETER_TAG = "message";
-    public static final String HELLO_VIEW_TAG = "registerInput";
-    public static final String SAMPLE_TEXT = "Hello rld!";
+    public static final String REGISTER_VIEW_TAG = "userRegistration";
     private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
 
     @Resource
@@ -30,20 +30,38 @@ public class RegisterController {
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(@RequestParam("Password") String pasword, @RequestParam("Uname") String uname, @RequestParam("ReType") String retype, final ModelMap model) {
+    public String userRegistration(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, @RequestParam("ReType") String retype, final ModelMap model) {
 
-        LOGGER.info("welcome!");
+        LOGGER.info("Start!");
 
-        final User entity = new User();
-        entity.setUsername("test");
-        entity.setId(0);
-        entity.setPassword(pasword);
-        final User savedEntity = userRepository.save(entity);
+        String resultPage = REGISTER_VIEW_TAG;
+        String resultMessage;
 
-
-        userRepository.findByNameUserList("test");
-
-        model.addAttribute(MESSAGE_PARAMETER_TAG, SAMPLE_TEXT);
-        return HELLO_VIEW_TAG;
+        if (pasword != null && !pasword.equals("")) {
+            if (pasword.equals(retype)) {
+                if (uname != null && !uname.equals("")) {
+                    List<User> users = userRepository.findByUsername(uname);
+                    if (users.size() == 0) {
+                        final User entity = new User();
+                        entity.setUserName(uname);
+                        entity.setPassword(pasword);
+                        final User savedEntity = userRepository.save(entity);
+                        resultMessage = "You have registered successfully";
+                        resultPage = "registerInput";
+                    } else {
+                        resultMessage = "Your username is already taken";
+                    }
+                } else {
+                    resultMessage = "Please enter a username";
+                }
+            } else {
+                resultMessage = "Your passwords do not match! Please retype your password";
+            }
+        } else {
+            resultMessage = "Please enter a password";
+        }
+        model.addAttribute(MESSAGE_PARAMETER_TAG, resultMessage);
+        return resultPage;
     }
+
 }
