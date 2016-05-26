@@ -9,25 +9,28 @@
 <body>
 
 
-<div align="center" style="margin-top:15%">
-    <form action="userRegistration" method="post" style="width: 300px">
+<div align="center" style="margin-top:15%; ">
+    <form action="userRegistration" class="panel panel-default" method="post"
+          style="width: 400px; background-color:aliceblue; padding: 10px">
 
-        <th><h1>Register</h1></th>
-        <div>
-            <div class="col-xs-6">Username</div>
-            <div class="col-xs-6"><input type="text" name="Uname"></div>
+        <h1 style="margin-bottom: 30px; font-family: Calibri">Register</h1>
+        <div class="input-group" style="margin: 10px">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Choose a username" aria-describedby="basic-addon1"
+                   name="Uname">
         </div>
-        <div>
-            <div class="col-xs-6">Password</div>
-            <div class="col-xs-6"><input type="password" name="Pasword"></div>
+        <div class="input-group" style="margin: 10px">
+            <span class="input-group-addon" id="basic-addon2">#</span>
+            <input type="password" class="form-control" placeholder="Type password" aria-describedby="basic-addon2"
+                   name="Pasword">
         </div>
-        <div>
-            <div class="col-xs-6">Retype password</div>
-            <div class="col-xs-6"><input type="password" name="ReType"></div>
+        <div class="input-group" style="margin: 10px">
+            <span class="input-group-addon" id="basic-addon3">#</span>
+            <input type="password" class="form-control" placeholder="Re-type password" aria-describedby="basic-addon2"
+                   name="ReType">
         </div>
-        <hr>
-        <div><input type="submit" value="Submit"></div>
-        <div>${message}</div>
+        <div><input type="submit" value="Register" class="btn-default" style="margin-top: 20px"></div>
+        <div style="margin-top: 20px; color:red">${message}</div>
     </form>
 </div>
 </body>
