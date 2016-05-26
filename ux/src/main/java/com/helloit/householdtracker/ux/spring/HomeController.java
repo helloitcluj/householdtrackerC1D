@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Service
 @Controller
-@RequestMapping("home")
 public class HomeController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "home")
+    public String homeRedirect() {
+        return "userLogin";
+    }
+
+    @RequestMapping(path = "redirect", method = RequestMethod.GET)
     public String redirect() {
         return "userRegistration";
     }

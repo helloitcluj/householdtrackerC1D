@@ -10,7 +10,7 @@
 
 
 <div align="center" style="margin-top:15%">
-    <form action="userLogin" method="post" style="width: 300px">
+    <form action="userLoginController" method="post" style="width: 300px">
 
         <th><h1>Login</h1></th>
         <div>
@@ -21,10 +21,13 @@
             <div class="col-xs-6">Password</div>
             <div class="col-xs-6"><input type="password" name="Pasword"></div>
         </div>
-        <hr>
-        <div><input type="submit" value="Submit"></div>
-        <div>${messageLogin}</div>
+        <p></p>
+        <div>${message}</div>
+        <p></p>
+        <input type="submit" value="Submit" class="btn btn-default" style="margin-top: 20px">
     </form>
+    <br/>
+    <div><a href="redirect">Create account</a></div>
 </div>
 </body>
 </html>
