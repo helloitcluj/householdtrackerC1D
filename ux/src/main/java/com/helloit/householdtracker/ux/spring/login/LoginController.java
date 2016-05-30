@@ -1,7 +1,8 @@
-package com.helloit.householdtracker.ux.spring;
+package com.helloit.householdtracker.ux.spring.login;
 
 import com.helloit.householdtracker.ux.common.entities.User;
 import com.helloit.householdtracker.ux.common.repository.IUserRepository;
+import com.helloit.householdtracker.ux.spring.register.RegisterController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class LoginController {
         String resultPage = "registerInput";
         String messageParameter = "message";
         String resultMessage = "Invalid credentials!";
+
+
 
         if (pasword != null && !pasword.equals("")) {
             if (uname != null && !uname.equals("")) {
