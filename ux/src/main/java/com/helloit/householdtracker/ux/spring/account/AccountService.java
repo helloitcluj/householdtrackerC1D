@@ -1,10 +1,11 @@
-package com.helloit.householdtracker.ux.spring.register;
+package com.helloit.householdtracker.ux.spring.account;
 
-import com.helloit.householdtracker.ux.common.IRegisterService;
+import com.helloit.householdtracker.ux.common.IAccountService;
 import com.helloit.householdtracker.ux.common.entities.User;
 import com.helloit.householdtracker.ux.common.repository.IUserRepository;
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,12 +15,12 @@ import java.util.List;
  */
 
 @Service
-public class RegisterService implements IRegisterService {
+public class AccountService implements IAccountService {
 
     @Resource
     private IUserRepository userRepository;
 
-    public RegisterService(IUserRepository userRepository) {
+    public AccountService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -46,6 +47,29 @@ public class RegisterService implements IRegisterService {
                 }
             } else {
                 result = CreationOutcomes.RETYPED_PASSWORD_DO_NOT_MATCH;
+            }
+        } else {
+            result = CreationOutcomes.MISSING_PASSWORD;
+        }
+
+        return result;
+    }
+
+    @Override
+    public CreationOutcomes loginAccount(@NotNull String uname, @NotNull String pasword){
+
+        CreationOutcomes result;
+
+        if (pasword != null && !pasword.equals("")) {
+            if (uname != null && !uname.equals("")) {
+                List<User> users = userRepository.findByUsernameAndPassword(uname, pasword);
+                if (users.size() == 0) {
+                    result = CreationOutcomes.INVALID_CREDENTIAL;
+                } else {
+                    result = CreationOutcomes.SUCCESS;
+                }
+            } else {
+                result = CreationOutcomes.MISSING_USERNAME;
             }
         } else {
             result = CreationOutcomes.MISSING_PASSWORD;

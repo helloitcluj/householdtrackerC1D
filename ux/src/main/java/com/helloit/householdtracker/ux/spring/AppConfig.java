@@ -1,8 +1,8 @@
 package com.helloit.householdtracker.ux.spring;
 
-import com.helloit.householdtracker.ux.common.IRegisterService;
+import com.helloit.householdtracker.ux.common.IAccountService;
 import com.helloit.householdtracker.ux.common.repository.IUserRepository;
-import com.helloit.householdtracker.ux.spring.register.RegisterService;
+import com.helloit.householdtracker.ux.spring.account.AccountService;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
@@ -18,8 +18,8 @@ public class AppConfig {
     }
 
     @Bean
-    public IRegisterService accountService(final IUserRepository userRepository) {
-        return new RegisterService(userRepository);
+    public IAccountService accountService(final IUserRepository userRepository) {
+        return new AccountService(userRepository);
     }
 
 }

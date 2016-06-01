@@ -2,7 +2,7 @@ package com.helloit.householdtracker.ux.spring.login;
 
 import com.helloit.householdtracker.ux.common.entities.User;
 import com.helloit.householdtracker.ux.common.repository.IUserRepository;
-import com.helloit.householdtracker.ux.spring.register.RegisterController;
+import com.helloit.householdtracker.ux.spring.account.AccountController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -24,13 +24,13 @@ import java.util.List;
 @RequestMapping("userLoginController")
 public class LoginController {
 
-    private static final Logger LOGGER = LogManager.getLogger(RegisterController.class);
+    private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
 
     @Resource
     private IUserRepository userRepository;
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(path="userLoginController" ,method = RequestMethod.POST)
     public String userLogin(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model) {
         String resultPage = "registerInput";
         String messageParameter = "message";

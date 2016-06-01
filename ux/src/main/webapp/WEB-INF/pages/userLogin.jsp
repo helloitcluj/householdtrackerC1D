@@ -16,7 +16,7 @@
             <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Uname">
         </div>
         <div class="input-group" style="margin: 10px">
-            <span class="input-group-addon" id="basic-addon1">%</span>
+            <span class="input-group-addon" id="basic-addon2">%</span>
             <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" name="Pasword">
         </div>
         <p></p>
