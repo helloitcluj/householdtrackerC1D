@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Student
@@ -8,9 +9,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Homepage</title>
 </head>
 <body>
-<h1>${message}</h1>
+
+    <div class="row">
+        <div class=" col-md-6">
+            ${message}
+        </div>
+        <div class=" col-md-6" >
+            <span class="pull-right" style="margin-right: 10px" >
+                <a href="logoutController">Logout</a>
+            </span>
+        </div>
+    </div>
 </body>
 </html>

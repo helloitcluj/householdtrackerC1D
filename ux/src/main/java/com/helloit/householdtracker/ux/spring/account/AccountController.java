@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 
 @Service
 @Controller
 public class AccountController {
 
     public static final String MESSAGE_TAG = "message";
-    public static final String REGISTER_SUCCESS = "homepage";
+    public static final String REGISTER_SUCCESS = "userRegistration";
     public static final String REGISTER_ERROR = "userRegistration";
     public static final String LOGIN_SUCCESS = "homepage";
     public static final String LOGIN_ERROR = "userLogin";
@@ -27,9 +29,11 @@ public class AccountController {
     @Autowired
     private IAccountService registerService;
 
+
     @Transactional
     @RequestMapping(path="userRegistration", method = RequestMethod.POST)
-    public String userRegistration(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, @RequestParam("ReType") String retype, final ModelMap model) {
+    public String userRegistration(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname,
+                                   @RequestParam("ReType") String retype, final ModelMap model) {
 
         LOGGER.info("Creating account!");
 
@@ -42,6 +46,7 @@ public class AccountController {
             case SUCCESS: {
                 resultPage = REGISTER_SUCCESS;
                 model.addAttribute(MESSAGE_TAG, "You are a lucky fellow!");
+                model.addAttribute("displayMetod", "display: none");
                 break;
             }
             case RETYPED_PASSWORD_DO_NOT_MATCH: {
@@ -74,7 +79,7 @@ public class AccountController {
 
     @Transactional
     @RequestMapping(path="userLoginController" ,method = RequestMethod.POST)
-    public String userLogin(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model) {
+    public String userLogin(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model, HttpSession session) {
 
         final IAccountService.CreationOutcomes outcome = registerService.loginAccount(uname, pasword);
 
@@ -84,7 +89,8 @@ public class AccountController {
         switch (outcome) {
             case SUCCESS: {
                 resultPage = LOGIN_SUCCESS;
-                model.addAttribute(MESSAGE_TAG, "You are a lucky fellow!");
+                model.addAttribute(MESSAGE_TAG, "You are a lucky fellow"+uname+"!");
+                session.setAttribute("currentUser",uname);
                 break;
             }
             case INVALID_CREDENTIAL: {
@@ -106,6 +112,16 @@ public class AccountController {
                 throw new UnsupportedOperationException("Not supported case!");
             }
         }
+
+        return resultPage;
+    }
+
+    @Transactional
+    @RequestMapping(path="logoutController" ,method = RequestMethod.GET)
+    public String userLogout(HttpSession session) {
+
+        final String resultPage="redirect:/home";
+        session.invalidate();
 
         return resultPage;
     }
