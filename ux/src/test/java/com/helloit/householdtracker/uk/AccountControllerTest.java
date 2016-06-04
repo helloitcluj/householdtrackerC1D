@@ -44,13 +44,12 @@ public class AccountControllerTest {
 
     @Test
     public void mismatchingPasswordTest() throws Exception {
-        mockMvc.perform(post("/account/create")
-                .param("userName", "aron")
-                .param("password", "123").param("retypedPassword", "1234"))
+        mockMvc.perform(post("/userRegistration")
+                .param("Uname", "aron")
+                .param("Pasword", "123")
+                .param("ReType", "1234"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.REGISTER_ERROR))
                 .andExpect(model().attribute(AccountController.MESSAGE_TAG, not(is(""))));
     }
 }
-
-//}
