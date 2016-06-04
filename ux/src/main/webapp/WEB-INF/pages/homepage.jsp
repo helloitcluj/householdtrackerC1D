@@ -25,5 +25,8 @@
             </span>
         </div>
     </div>
+    <div>
+        Logged in user: ${loggedInUser}
+    </div>
 </body>
 </html>

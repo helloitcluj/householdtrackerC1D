@@ -88,9 +88,12 @@ public class AccountController {
 
         switch (outcome) {
             case SUCCESS: {
+                String currentUserName = "";
                 resultPage = LOGIN_SUCCESS;
                 model.addAttribute(MESSAGE_TAG, "You are a lucky fellow"+uname+"!");
                 session.setAttribute("currentUser",uname);
+                currentUserName = (String)session.getAttribute("currentUser");
+                model.addAttribute("loggedInUser", currentUserName);
                 break;
             }
             case INVALID_CREDENTIAL: {
