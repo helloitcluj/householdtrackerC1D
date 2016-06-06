@@ -28,5 +28,8 @@
     <div>
         Logged in user: ${loggedInUser}
     </div>
+    <div>
+        <a href="changePasswordNavigationController">Change password</a>
+    </div>
 </body>
 </html>

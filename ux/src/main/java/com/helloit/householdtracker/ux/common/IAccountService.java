@@ -1,6 +1,7 @@
 package com.helloit.householdtracker.ux.common;
 
 
+import com.helloit.householdtracker.ux.common.entities.User;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,6 +13,8 @@ public interface IAccountService {
     CreationOutcomes registerAccount(@NotNull String userName, @NotNull String password, @NotNull String retypedPassword);
 
     CreationOutcomes loginAccount(@NotNull String userName, @NotNull String password);
+
+    User getLoggedInUser(String uname, String pasword);
 
     enum CreationOutcomes {
         SUCCESS,

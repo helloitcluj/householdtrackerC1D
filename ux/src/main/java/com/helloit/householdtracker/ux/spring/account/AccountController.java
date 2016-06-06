@@ -1,6 +1,7 @@
 package com.helloit.householdtracker.ux.spring.account;
 
 import com.helloit.householdtracker.ux.common.IAccountService;
+import com.helloit.householdtracker.ux.common.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +92,9 @@ public class AccountController {
                 String currentUserName = "";
                 resultPage = LOGIN_SUCCESS;
                 model.addAttribute(MESSAGE_TAG, "You are a lucky fellow"+uname+"!");
-                session.setAttribute("currentUser",uname);
-                currentUserName = (String)session.getAttribute("currentUser");
-                model.addAttribute("loggedInUser", currentUserName);
+                User loggedInUser = registerService.getLoggedInUser(uname, pasword);
+                session.setAttribute("currentUser",loggedInUser);
+                model.addAttribute("loggedInUser", loggedInUser.getUserName());
                 break;
             }
             case INVALID_CREDENTIAL: {
@@ -127,6 +128,13 @@ public class AccountController {
         session.invalidate();
 
         return resultPage;
+    }
+
+    @Transactional
+    @RequestMapping(path="changePasswordNavigationController" ,method = RequestMethod.GET)
+    public String changePasswordNavigation(ModelMap model) {
+
+        return "changePassword";
     }
 
 }

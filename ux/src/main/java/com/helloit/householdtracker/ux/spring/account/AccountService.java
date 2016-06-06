@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,6 +78,20 @@ public class AccountService implements IAccountService {
         }
 
         return result;
+    }
+
+    public User getLoggedInUser(String uname, String pasword){
+
+        List<User> loggegInUserList = new ArrayList<User>();
+        User loggedInUser = new User();
+
+        loggegInUserList = userRepository.findByUsernameAndPassword(uname, pasword);
+
+        for (User user : loggegInUserList){
+            loggedInUser = user;
+        }
+
+        return loggedInUser;
     }
 
 }

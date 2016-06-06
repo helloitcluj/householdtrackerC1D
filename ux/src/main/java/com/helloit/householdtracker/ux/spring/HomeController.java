@@ -1,5 +1,6 @@
 package com.helloit.householdtracker.ux.spring;
 
+import com.helloit.householdtracker.ux.common.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -17,9 +18,9 @@ public class HomeController {
 
     @RequestMapping(path = "home")
     public String homeRedirect(HttpSession session, ModelMap model) {
-        String loggedInUser = (String)session.getAttribute("currentUser");
+        User loggedInUser = (User) session.getAttribute("currentUser");
         if(loggedInUser != null){
-            model.addAttribute("loggedInUser", loggedInUser);
+            model.addAttribute("loggedInUser", loggedInUser.getUserName());
             return "homepage";
         }
         else {
