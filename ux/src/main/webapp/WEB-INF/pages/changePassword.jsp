@@ -13,24 +13,26 @@
     <form action="changePasswordController" class="panel panel-default" method="post"
           style="width: 400px; background-color:aliceblue; padding: 10px">
 
-        <h1 style="margin-bottom: 30px; font-family: Calibri;${displayMetod}">Change Password</h1>
-        <div class="input-group" style="margin: 10px;${displayMetod}">
+        <h1 style="margin-bottom: 30px; font-family: Calibri">Change Password</h1>
+        <div class="input-group" style="margin: 10px">
             <span class="input-group-addon" id="basic-addon1">@</span>
-            <input type="text" class="form-control" placeholder="Type your current password" aria-describedby="basic-addon1"
-                   name="Uname">
+            <input type="password" class="form-control" placeholder="Type your current password" aria-describedby="basic-addon1"
+                   name="oldPassword">
         </div>
-        <div class="input-group" style="margin: 10px;${displayMetod}">
+        <div class="input-group" style="margin: 10px">
             <span class="input-group-addon" id="basic-addon2">#</span>
             <input type="password" class="form-control" placeholder="Type new password" aria-describedby="basic-addon2"
-                   name="Pasword">
+                   name="newPassword">
         </div>
-        <div class="input-group" style="margin: 10px;${displayMetod}" >
+        <div class="input-group" style="margin: 10px" >
             <span class="input-group-addon" id="basic-addon3">#</span>
             <input type="password" class="form-control" placeholder="Re-type new password" aria-describedby="basic-addon2"
-                   name="ReType">
+                   name="reTypeNewPassword">
         </div>
-        <div style="${displayMetod}"><input type="submit" value="Change password" class="btn-default" style="margin-top: 20px"></div>
+        <div><input type="submit" value="Change password" class="btn-default" style="margin-top: 20px"></div>
         <div style="margin-top: 20px; color:red">${message}</div>
+        <br/>
+        <div><a href="home">Back to homepage</a></div>
 
     </form>
 </div>

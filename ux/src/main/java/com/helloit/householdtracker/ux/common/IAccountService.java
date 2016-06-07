@@ -4,6 +4,8 @@ package com.helloit.householdtracker.ux.common;
 import com.helloit.householdtracker.ux.common.entities.User;
 import org.jetbrains.annotations.NotNull;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by Student on 5/30/2016.
  */
@@ -16,12 +18,15 @@ public interface IAccountService {
 
     User getLoggedInUser(String uname, String pasword);
 
+    CreationOutcomes changeAccountPassword(User user, @NotNull String oldPassword, @NotNull String newPassword, @NotNull String reTypeNewPassword);
+
     enum CreationOutcomes {
         SUCCESS,
         RETYPED_PASSWORD_DO_NOT_MATCH,
         MISSING_USERNAME,
         MISSING_PASSWORD,
         INVALID_CREDENTIAL,
+        MISSING_NEW_PASSWORD,
         EXISTING_ACCOUNT
     }
 

@@ -25,6 +25,7 @@ public class AccountController {
     public static final String REGISTER_ERROR = "userRegistration";
     public static final String LOGIN_SUCCESS = "homepage";
     public static final String LOGIN_ERROR = "userLogin";
+    public static final String PASSWORD_CHANGE = "changePassword";
     private static final Logger LOGGER = LogManager.getLogger(AccountController.class);
 
     @Autowired
@@ -135,6 +136,49 @@ public class AccountController {
     public String changePasswordNavigation(ModelMap model) {
 
         return "changePassword";
+    }
+
+    @Transactional
+    @RequestMapping(path="changePasswordController" ,method = RequestMethod.POST)
+    public String changePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("reTypeNewPassword") String reTypeNewPassword, final ModelMap model, HttpSession httpSession) {
+
+    User loggedInUser = (User) httpSession.getAttribute("currentUser");
+
+    IAccountService.CreationOutcomes outcome = registerService.changeAccountPassword(loggedInUser, oldPassword, newPassword, reTypeNewPassword);
+    final String resultPage;
+
+        switch (outcome){
+            case INVALID_CREDENTIAL: {
+                resultPage = PASSWORD_CHANGE;
+                model.addAttribute(MESSAGE_TAG, "Your current password is not correct. Please check and re-type");
+                break;
+            }
+            case RETYPED_PASSWORD_DO_NOT_MATCH: {
+                resultPage = PASSWORD_CHANGE;
+                model.addAttribute(MESSAGE_TAG, "Passwords do not match. Plese re-type!");
+                break;
+            }
+            case MISSING_PASSWORD: {
+                resultPage = PASSWORD_CHANGE;
+                model.addAttribute(MESSAGE_TAG, "Please enter your current password!");
+                break;
+            }
+            case MISSING_NEW_PASSWORD: {
+                resultPage = PASSWORD_CHANGE;
+                model.addAttribute(MESSAGE_TAG, "Please enter your new password!");
+                break;
+            }
+            case SUCCESS: {
+                resultPage = PASSWORD_CHANGE;
+                model.addAttribute(MESSAGE_TAG, "Your password is changed!");
+                break;
+            }
+            default: {
+                throw new UnsupportedOperationException("Not supported case!");
+            }
+        }
+
+    return resultPage;
     }
 
 }
