@@ -1,33 +1,63 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Login Page</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link href="css/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="css/loginpage.css" rel="stylesheet">
 </head>
 <body>
 
-
-<div align="center" style="margin-top:15%">
-    <form action="userLoginController" class="panel panel-default" method="post" style="width: 400px; padding: 10px; background-color: #f2f2f2"  >
-        <h1>Login</h1>
-        <div class="input-group" style="margin: 10px">
-            <span class="input-group-addon" id="basic-addon1">@</span>
-            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Uname">
-        </div>
-        <div class="input-group" style="margin: 10px">
-            <span class="input-group-addon" id="basic-addon2">%</span>
-            <input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" name="Pasword">
-        </div>
+<div class="container">
+    <form class="form-login" action="userLoginController" method="post">
+        <h2 class="form-signin-heading">Creating account...</h2>
+        <label for="userName" class="sr-only">User name</label><input type="text" id="userName" name="Uname"
+                                                                      placeholder="User name" class="form-control"
+                                                                      required autofocus>
+        <label for="password" class="sr-only">Password</label><input type="password" id="password" name="Pasword"
+                                                                     placeholder="Password" class="form-control"
+                                                                     required>
         <p></p>
         <div>${message}</div>
         <p></p>
-        <input type="submit" value="Submit" class="btn btn-default" style="margin-top: 20px">
-        <br/>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
         <div><a href="redirect">Create account</a></div>
     </form>
-
-
 </div>
+
+<%--<div align="center" style="margin-top:15%">--%>
+    <%--<form action="userLoginController" class="panel panel-default" method="post" style="width: 400px; padding: 10px; background-color: #f2f2f2"  >--%>
+        <%--<h1>Login</h1>--%>
+        <%--<div class="input-group" style="margin: 10px">--%>
+            <%--<span class="input-group-addon" id="basic-addon1">@</span>--%>
+            <%--<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="Uname">--%>
+        <%--</div>--%>
+        <%--<div class="input-group" style="margin: 10px">--%>
+            <%--<span class="input-group-addon" id="basic-addon2">%</span>--%>
+            <%--<input type="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" name="Pasword">--%>
+        <%--</div>--%>
+        <%--<p></p>--%>
+        <%--<div>${message}</div>--%>
+        <%--<p></p>--%>
+        <%--<input type="submit" value="Submit" class="btn btn-default" style="margin-top: 20px">--%>
+        <%--<br/>--%>
+        <%--<div><a href="redirect">Create account</a></div>--%>
+    <%--</form>--%>
+
+
+<%--</div>--%>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="javascript"></script>
+<script type="javascript">window.jQuery || document.write('<script src="../js/vendor/jquery.min.js" type="javascript"><\/script>')</script>
+<script src="/js/vendor/bootstrap.min.js" type="javascript"></script>
+<script src="/js/vendor/ie10-viewport-bug-workaround.js" type="javascript"></script>
+
 </body>
 </html>
