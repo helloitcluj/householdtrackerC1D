@@ -12,20 +12,21 @@
 </head>
 <body>
 
-<div class="container">
-    <form class="form-login" action="userLoginController" method="post">
-        <h2 class="form-signin-heading">Creating account...</h2>
+<div class="container" align="center" style="margin-top:15%; ">
+    <form class="form-login" action="userLoginController" class="panel panel-default" method="post" style="width: 400px; background-color:aliceblue; padding: 10px">
+        <h2 class="form-signin-heading" style="margin-bottom: 30px; font-family: Calibri" >Logged in...</h2>
         <label for="userName" class="sr-only">User name</label><input type="text" id="userName" name="Uname"
-                                                                      placeholder="User name" class="form-control"
+                                                                      placeholder="Type your username" class="form-control"
                                                                       required autofocus>
         <label for="password" class="sr-only">Password</label><input type="password" id="password" name="Pasword"
-                                                                     placeholder="Password" class="form-control"
+                                                                     placeholder="Type your password" class="form-control"
                                                                      required>
         <p></p>
         <div>${message}</div>
         <p></p>
         <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
-        <div><a href="redirect">Create account</a></div>
+        <br/>
+        Don't have an account?<div><a href="redirect">Create account</a></div>
     </form>
 </div>
 
