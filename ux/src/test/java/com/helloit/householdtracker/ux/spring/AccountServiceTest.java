@@ -1,4 +1,4 @@
-package com.helloit.householdtracker.uk;
+package com.helloit.householdtracker.ux.spring;
 
 import com.helloit.householdtracker.ux.common.IAccountService;
 import com.helloit.householdtracker.ux.common.entities.User;

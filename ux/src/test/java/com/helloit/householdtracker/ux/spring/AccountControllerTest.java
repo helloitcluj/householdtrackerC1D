@@ -1,6 +1,8 @@
 package com.helloit.householdtracker.ux.spring;
 
 
+import com.helloit.householdtracker.ux.spring.AppConfig;
+import com.helloit.householdtracker.ux.spring.WebConfig;
 import com.helloit.householdtracker.ux.spring.account.AccountController;
 import org.junit.Before;
 import org.junit.Test;
