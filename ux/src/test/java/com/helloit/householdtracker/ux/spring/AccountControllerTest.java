@@ -38,7 +38,7 @@ public class AccountControllerTest {
 
     @Test
     public void mismatchingPasswordTest() throws Exception {
-        mockMvc.perform(post("/userRegistration")
+        mockMvc.perform(post("/account/userRegistration")
                 .param("Uname", "aron")
                 .param("Pasword", "123").param("ReType", "1234"))
                 .andExpect(status().isOk())

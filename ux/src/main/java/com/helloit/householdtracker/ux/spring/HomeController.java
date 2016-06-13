@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
-    @RequestMapping(path = "home")
+    @RequestMapping(path = "/")
     public String homeRedirect(HttpSession session, ModelMap model) {
         User loggedInUser = (User) session.getAttribute("currentUser");
         if(loggedInUser != null){
@@ -24,13 +24,9 @@ public class HomeController {
             return "homepage";
         }
         else {
-            return "userLogin";
+            return "redirect:/account/userLoginController";
         }
     }
 
-    @RequestMapping(path = "redirect", method = RequestMethod.GET)
-    public String redirect() {
-        return "userRegistration";
-    }
 
 }

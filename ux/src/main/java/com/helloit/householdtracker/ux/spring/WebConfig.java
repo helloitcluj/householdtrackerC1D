@@ -16,15 +16,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         final ResourceHandlerRegistration jsRegistration = registry.addResourceHandler("/js/**");
         jsRegistration.addResourceLocations("/js/");
-        final ResourceHandlerRegistration xmlRegistration = registry.addResourceHandler("/xml/**");
-        xmlRegistration.addResourceLocations("/xml/");
+        final ResourceHandlerRegistration cssRegistration = registry.addResourceHandler("/css/**");
+        cssRegistration.addResourceLocations("/css/");
+        final ResourceHandlerRegistration imagesRegistration = registry.addResourceHandler("/images/**");
+        imagesRegistration.addResourceLocations("/images/");
     }
-
-    @Override
-    public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
 
     @Bean
     public InternalResourceViewResolver resolver() {

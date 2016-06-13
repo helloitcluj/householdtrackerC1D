@@ -101,7 +101,7 @@ public class SchemaManager {
         final ClassLoader classLoader = SchemaManager.class.getClassLoader();
 
         try (final Connection connection = DriverManager.getConnection(jdbUrl);
-             final InputStream stream = classLoader.getResourceAsStream("schema-hsql.sql")) {
+             final InputStream stream = classLoader.getResourceAsStream("createSchema.sql")) {
             runScript(connection, stream);
         } catch (IOException | SQLException e) {
             LOGGER.error(e);
