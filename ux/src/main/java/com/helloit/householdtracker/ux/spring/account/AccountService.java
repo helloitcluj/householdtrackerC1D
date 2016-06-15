@@ -115,4 +115,9 @@ public class AccountService implements IAccountService {
     return result;
     }
 
+    public List<User> getUserList(){
+        List<User> users = userRepository.findAll();
+        return users;
+    }
+
 }

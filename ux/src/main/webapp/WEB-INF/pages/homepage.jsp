@@ -9,6 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/local/htracker.js"></script>
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
@@ -29,13 +31,15 @@
     <!-- Custom Fonts -->
     <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
+    <script type="text/javascript">
+    </script>
 </head>
 
 <body>
@@ -165,8 +169,9 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
+                                <input type="button" id="button" value="Show users list">
+                                <div class="table-responsive" id="targetElement">
+                                    <table class="table table-bordered table-hover table-striped" id="tableToRemove">
                                         <thead>
                                         <tr>
                                             <th>#</th>
