@@ -13,7 +13,7 @@
 <body>
 
 <div class="container" align="center" style="margin-top:15%; ">
-    <form class="form-login" action="userLoginController" class="panel panel-default" method="post" style="width: 400px; background-color:aliceblue; padding: 10px">
+    <form id="mainForm" class="form-login" action="loginAjax" class="panel panel-default" method="post" style="width: 400px; background-color:aliceblue; padding: 10px">
         <h2 class="form-signin-heading" style="margin-bottom: 30px; font-family: Calibri" >Log in...</h2>
         <label for="userName" class="sr-only">User name</label><input type="text" id="userName" name="Uname"
                                                                       placeholder="Type your username" class="form-control"
@@ -22,10 +22,10 @@
                                                                      placeholder="Type your password" class="form-control"
                                                                      required>
         <p></p>
-        <div>${message}</div>
         <p></p>
         <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
-        <br/>
+
+        <div id="errorMessage">${message}</div>
         Don't have an account?<div><a href="userRegistration">Create account</a></div>
     </form>
 </div>
@@ -37,10 +37,32 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="javascript"></script>
-<script type="javascript">window.jQuery || document.write('<script src="../js/vendor/jquery.min.js" type="javascript"><\/script>')</script>
-<script src="..//js/vendor/bootstrap.min.js" type="javascript"></script>
-<script src="..//js/vendor/ie10-viewport-bug-workaround.js" type="javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+<script type="javascript">window.jQuery || document.write('<script src="../js/vendor/jquery.min.js" type="text/javascript"><\/script>')</script>
+<script src="..//js/vendor/bootstrap.min.js" type="text/javascript"></script>
+<script src="..//js/vendor/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
+
+<script type="text/javascript" >
+    $(function(){
+
+
+    $("#mainForm").submit(function (event){
+
+        event.preventDefault();
+        var url = $(this).attr("action");
+        var posting = $.post(url,{Uname: $("#userName")[0].value, Pasword: $("#password")[0].value})
+        posting.done(function(message){
+                if(message===""){
+                    window.location.href = "../";
+                }
+                else{
+                    $("#errorMessage").empty().append(message);
+                }
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>

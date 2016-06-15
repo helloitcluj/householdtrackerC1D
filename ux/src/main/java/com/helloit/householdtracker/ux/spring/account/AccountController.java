@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -88,7 +89,7 @@ public class AccountController {
         return LOGIN_ERROR;
     }
 
-        @RequestMapping(path="userLoginController" ,method = RequestMethod.POST)
+    @RequestMapping(path="userLoginController" ,method = RequestMethod.POST)
     public String userLogin(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model, HttpSession session) {
 
         final IAccountService.CreationOutcomes outcome = registerService.loginAccount(uname, pasword);
@@ -125,6 +126,41 @@ public class AccountController {
         }
 
         return resultPage;
+    }
+
+    @RequestMapping(path="loginAjax" ,method = RequestMethod.POST)
+    public @ResponseBody String loginAjax(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model, HttpSession session) {
+
+        final IAccountService.CreationOutcomes outcome = registerService.loginAccount(uname, pasword);
+
+
+        final String resultMessage;
+
+        switch (outcome) {
+            case SUCCESS: {
+                resultMessage = null;
+                final User loggedInUser = registerService.getLoggedInUser(uname, pasword);
+                session.setAttribute("currentUser",loggedInUser);
+                break;
+            }
+            case INVALID_CREDENTIAL: {
+                resultMessage = "Invalid credentials!";
+                break;
+            }
+            case MISSING_USERNAME: {
+                resultMessage = "Please enter a username!";
+                break;
+            }
+            case MISSING_PASSWORD: {
+                resultMessage = "Please enter a password!";
+                break;
+            }
+            default: {
+                throw new UnsupportedOperationException("Not supported case!");
+            }
+        }
+
+        return resultMessage;
     }
 
     @RequestMapping(path="logoutController" ,method = RequestMethod.GET)
