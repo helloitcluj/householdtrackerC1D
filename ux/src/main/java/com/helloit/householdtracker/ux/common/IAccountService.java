@@ -5,6 +5,7 @@ import com.helloit.householdtracker.ux.common.entities.User;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Student on 5/30/2016.
@@ -20,6 +21,7 @@ public interface IAccountService {
 
     CreationOutcomes changeAccountPassword(User user, @NotNull String oldPassword, @NotNull String newPassword, @NotNull String reTypeNewPassword);
 
+    List<User> getUserList();
     enum CreationOutcomes {
         SUCCESS,
         RETYPED_PASSWORD_DO_NOT_MATCH,

@@ -12,8 +12,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -184,5 +186,54 @@ public class AccountController {
     return resultPage;
     }
 
+    @RequestMapping(path="testAjax" ,method = RequestMethod.POST)
+    @ResponseBody public List<User> testAjax(HttpSession session) {
+
+        String result = "";
+        User user = (User)session.getAttribute("currentUser");
+        List<User> users = registerService.getUserList();
+
+        return users;
+    }
+
+    @RequestMapping(path="registerAjax", method = RequestMethod.POST)
+    @ResponseBody String registerAjax(final String pasword, final String uname,
+                                   final String retype) {
+
+        LOGGER.info("Creating account!");
+
+        final IAccountService.CreationOutcomes outcome = registerService.registerAccount(uname, pasword, retype);
+
+
+        final String resultPage;
+
+        switch (outcome) {
+            case SUCCESS: {
+                resultPage = "You have registered successfully";
+                break;
+            }
+            case RETYPED_PASSWORD_DO_NOT_MATCH: {
+                resultPage = "Retyped password did not match!";
+                break;
+            }
+            case EXISTING_ACCOUNT: {
+                resultPage = "Account '" + uname + "' already exists!";
+                 break;
+            }
+            case MISSING_USERNAME: {
+                resultPage = "Please enter a username!";
+                break;
+            }
+            case MISSING_PASSWORD: {
+                resultPage = "Please enter a password!";
+                break;
+            }
+            default: {
+                throw new UnsupportedOperationException("Not supported case!");
+            }
+        }
+
+        return resultPage;
+    }
 
 }
