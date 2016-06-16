@@ -6,8 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -130,30 +128,32 @@ public class AccountController {
     }
 
     @RequestMapping(path="loginAjax" ,method = RequestMethod.POST)
-    public @ResponseBody String loginAjax(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model, HttpSession session) {
+    public @ResponseBody
+    AccountResult loginAjax(@RequestParam("Pasword") String pasword, @RequestParam("Uname") String uname, final ModelMap model, HttpSession session) {
 
         final IAccountService.CreationOutcomes outcome = registerService.loginAccount(uname, pasword);
 
 
-        final String resultMessage;
+        final AccountResult result;
 
         switch (outcome) {
             case SUCCESS: {
-                resultMessage = null;
+                result = new AccountResult(AccountResult.Kind.SUCCESS);
+
                 final User loggedInUser = registerService.getLoggedInUser(uname, pasword);
                 session.setAttribute("currentUser",loggedInUser);
                 break;
             }
             case INVALID_CREDENTIAL: {
-                resultMessage = "Invalid credentials!";
+                result = new AccountResult(AccountResult.Kind.ERROR, "Invalid credentials!");
                 break;
             }
             case MISSING_USERNAME: {
-                resultMessage = "Please enter a username!";
+                result = new AccountResult(AccountResult.Kind.ERROR, "Please enter a username!");
                 break;
             }
             case MISSING_PASSWORD: {
-                resultMessage = "Please enter a password!";
+                result = new AccountResult(AccountResult.Kind.ERROR, "Please enter a password!");
                 break;
             }
             default: {
@@ -161,7 +161,7 @@ public class AccountController {
             }
         }
 
-        return resultMessage;
+        return result;
     }
 
     @RequestMapping(path="logoutController" ,method = RequestMethod.GET)

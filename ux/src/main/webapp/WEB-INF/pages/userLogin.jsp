@@ -51,12 +51,12 @@
         event.preventDefault();
         var url = $(this).attr("action");
         var posting = $.post(url,{Uname: $("#userName")[0].value, Pasword: $("#password")[0].value})
-        posting.done(function(message){
-                if(message===""){
+        posting.done(function(loginResult){
+                if(loginResult.kind ==="SUCCESS"){
                     window.location.href = "../";
                 }
                 else{
-                    $("#errorMessage").empty().append(message);
+                    $("#errorMessage").empty().append(loginResult.message);
                 }
             });
         });
