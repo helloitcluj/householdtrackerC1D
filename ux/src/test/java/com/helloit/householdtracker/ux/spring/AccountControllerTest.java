@@ -3,10 +3,13 @@ package com.helloit.householdtracker.ux.spring;
 
 import com.helloit.householdtracker.ux.spring.account.AccountController;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,8 +21,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class, WebConfig.class})
+@ContextConfiguration(classes = {TestAppConfig.class, WebConfig.class})
 @WebAppConfiguration
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Sql({ "/create-schema.sql", "/insert-test-users.sql" })
 public class AccountControllerTest {
     private MockMvc mockMvc;
 
@@ -32,15 +37,10 @@ public class AccountControllerTest {
     }
 
     //User Registration TESTS
-
-//    @Before
-//    private void testExistAcount() {
-//
-//    }
     @Test
     public void registrationSuccessTest() throws Exception {
         mockMvc.perform(post("/account/userRegistration")
-                .param("Uname", "aron")
+                .param("Uname", "test")
                 .param("Pasword", "123").param("ReType", "123"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.REGISTER_SUCCESS))
@@ -94,18 +94,17 @@ public class AccountControllerTest {
 
     //User Login TESTS
     @Test
-    public void loginSuccessTest() throws Exception {
+    public void test01_loginSuccessTest() throws Exception {
         mockMvc.perform(post("/account/userLoginController")
                 .param("Uname", "aron")
                 .param("Pasword", "123"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("homepage"))
-                .andExpect(model().attribute(AccountController.MESSAGE_TAG, "You are a lucky fellow aron!"))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/"))
         ;
     }
 
     @Test
-    public void loginInvalidCredentialTest() throws Exception {
+    public void test02_loginInvalidCredentialTest() throws Exception {
         mockMvc.perform(post("/account/userLoginController")
                 .param("Uname", "aronka")
                 .param("Pasword", "123"))
@@ -116,7 +115,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void loginMissingUsernameTest() throws Exception {
+    public void test03_loginMissingUsernameTest() throws Exception {
         mockMvc.perform(post("/account/userLoginController")
                 .param("Uname", "")
                 .param("Pasword", "123"))
@@ -127,7 +126,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void loginMissingPasswordTest() throws Exception {
+    public void test04_loginMissingPasswordTest() throws Exception {
         mockMvc.perform(post("/account/userLoginController")
                 .param("Uname", "aron")
                 .param("Pasword", ""))
@@ -137,22 +136,10 @@ public class AccountControllerTest {
         ;
     }
 
-    //User Logout TESTS
-//    @Before
-//    private void userExistingTest() {
-//
-//    }
-    @Test
-    public void logoutSuccessTest() throws Exception {
-        mockMvc.perform(get("/account/logoutController"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("redirect:/"))
-        ;
-    }
 
     //Change Password Navigation TESTS
     @Test
-    public void changePasswordNavigatioTest() throws Exception {
+    public void changePasswordNavigationTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordNavigationController"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.PASSWORD_CHANGE))
@@ -161,10 +148,10 @@ public class AccountControllerTest {
 
     //Change password  TESTS
     @Test
-    public void changePasswordInvalidCredentialTest() throws Exception {
+    public void test10_changePasswordInvalidCredentialTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
-                .param("oldPassword", "123")
-                .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
+                .param("oldPassword", "1234")
+                .param("newPassword", "12345").param("reTypeNewPassword", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.PASSWORD_CHANGE))
                 .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Your current password is not correct. Please check and re-type"))
@@ -172,7 +159,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void changePasswordDoNotMachTest() throws Exception {
+    public void test11_changePasswordDoNotMachTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
                 .param("oldPassword", "123")
                 .param("Pasword", "1234").param("reTypeNewPassword", "1234"))
@@ -183,7 +170,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void changePasswordMissingPasswordTest() throws Exception {
+    public void test12_changePasswordMissingPasswordTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
         .param("oldPassword", "")
         .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
@@ -194,7 +181,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void changePasswordMissingRetypedPasswordTest() throws Exception {
+    public void test13_changePasswordMissingRetypedPasswordTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
                 .param("oldPassword", "123")
                 .param("newPassword", "1234").param("reTypeNewPassword", ""))
@@ -205,7 +192,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void changePasswordSuccessTest() throws Exception {
+    public void test14_changePasswordSuccessTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
                 .param("oldPassword", "123")
                 .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
@@ -214,4 +201,15 @@ public class AccountControllerTest {
                 .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Your password is changed!"))
         ;
     }
+
+
+    //User Logout TESTS
+    @Test
+    public void test30_logoutSuccessTest() throws Exception {
+        mockMvc.perform(get("/account/logoutController"))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/"))
+        ;
+    }
+
 }
