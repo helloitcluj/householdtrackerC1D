@@ -1,7 +1,9 @@
 package com.helloit.householdtracker.ux.spring;
 
 
+import com.helloit.householdtracker.ux.common.entities.User;
 import com.helloit.householdtracker.ux.spring.account.AccountController;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -14,6 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.HashMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -161,9 +165,23 @@ public class AccountControllerTest {
     }
 
     //Change password  TESTS
+    @NotNull
+    private HashMap<String, Object> setSessionAttributes(final String testUserName, String testUserPassword) {
+        HashMap<String, Object> sessionAttributes = new HashMap<String, Object>();
+
+        User loggedInUser = new User();
+        loggedInUser.setUserName(testUserName);
+        loggedInUser.setPassword(testUserPassword);
+        sessionAttributes.put("currentUser", loggedInUser);
+        return sessionAttributes;
+    }
+
     @Test
     public void test10_changePasswordInvalidCredentialTest() throws Exception {
+        HashMap<String, Object> sessionAttributes = setSessionAttributes("aron", "");
+
         mockMvc.perform(post("/account/changePasswordController")
+                .sessionAttrs(sessionAttributes)
                 .param("oldPassword", "1234")
                 .param("newPassword", "12345").param("reTypeNewPassword", "12345"))
                 .andExpect(status().isOk())
@@ -172,9 +190,12 @@ public class AccountControllerTest {
         ;
     }
 
+
     @Test
     public void test11_changePasswordDoNotMachTest() throws Exception {
+        HashMap<String, Object> sessionAttributes = setSessionAttributes("aron", "");
         mockMvc.perform(post("/account/changePasswordController")
+                .sessionAttrs(sessionAttributes)
                 .param("oldPassword", "123")
                 .param("newPassword", "12345").param("reTypeNewPassword", "1234"))
                 .andExpect(status().isOk())
@@ -185,18 +206,22 @@ public class AccountControllerTest {
 
     @Test
     public void test12_changePasswordMissingPasswordTest() throws Exception {
+        HashMap<String, Object> sessionAttributes = setSessionAttributes("aron", "");
         mockMvc.perform(post("/account/changePasswordController")
-        .param("oldPassword", "")
-        .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
-        .andExpect(status().isOk())
-        .andExpect(view().name(AccountController.PASSWORD_CHANGE))
-        .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Please enter your current password!"))
+                .sessionAttrs(sessionAttributes)
+                .param("oldPassword", "")
+                .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(AccountController.PASSWORD_CHANGE))
+                .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Please enter your current password!"))
         ;
     }
 
     @Test
     public void test13_changePasswordMissingRetypedPasswordTest() throws Exception {
+        HashMap<String, Object> sessionAttributes = setSessionAttributes("aron", "");
         mockMvc.perform(post("/account/changePasswordController")
+                .sessionAttrs(sessionAttributes)
                 .param("oldPassword", "123")
                 .param("newPassword", "1234").param("reTypeNewPassword", ""))
                 .andExpect(status().isOk())
@@ -207,7 +232,10 @@ public class AccountControllerTest {
 
     @Test
     public void test14_changePasswordSuccessTest() throws Exception {
+        HashMap<String, Object> sessionAttributes = setSessionAttributes("aron", "123");
+
         mockMvc.perform(post("/account/changePasswordController")
+                .sessionAttrs(sessionAttributes)
                 .param("oldPassword", "123")
                 .param("newPassword", "1234").param("reTypeNewPassword", "1234"))
                 .andExpect(status().isOk())
