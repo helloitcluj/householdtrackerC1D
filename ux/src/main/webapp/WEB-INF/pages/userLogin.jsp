@@ -51,12 +51,15 @@
         event.preventDefault();
         var url = $(this).attr("action");
         var posting = $.post(url,{Uname: $("#userName")[0].value, Pasword: $("#password")[0].value})
+
         posting.done(function(loginResult){
             if(loginResult.kind ==="SUCCESS"){
                 window.location.href = "../";
             }
             else{
-                $("#errorMessage").empty().append(loginResult.message);
+                var $messageDiv = $('<div class="alert alert-danger" role="alert"></div>');
+                $messageDiv.append(loginResult.message);
+                $("#errorMessage").empty().append($messageDiv);
             }
         });
 
