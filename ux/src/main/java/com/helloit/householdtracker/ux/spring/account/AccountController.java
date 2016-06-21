@@ -231,6 +231,16 @@ public class AccountController {
         return users;
     }
 
+
+    @RequestMapping(path="getUserProfile" ,method = RequestMethod.POST)
+    @ResponseBody public User getUser(Integer id) {
+
+        String result = "";
+        User user = registerService.getUser(id);
+
+        return user;
+    }
+
     @RequestMapping(path="registerAjax", method = RequestMethod.POST)
     @ResponseBody String registerAjax(final String pasword, final String uname,
                                    final String retype) {

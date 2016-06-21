@@ -118,4 +118,9 @@ public class AccountService implements IAccountService {
         return users;
     }
 
+    public User getUser(Integer id){
+        User user = userRepository.findOneById(id);
+        return user;
+    }
+
 }

@@ -95,7 +95,7 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                        <a href="/ux/"><i class="fa fa-dashboard fa-fw"></i> Home</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
@@ -119,13 +119,13 @@
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Exchange rates</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Export<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Admin<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="blank.html">Export to Excel</a>
+                                <a href="#" id="adminMenuItem">Manage users</a>
                             </li>
                             <li>
-                                <a href="login.html">Export as text</a>
+                                <a href="#">Other settings</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -168,8 +168,8 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <input type="button" id="button" value="Show users list">
+                            <div class="col-lg-4" id="tableContainer">
+                                <input type="button" id="testButton" value="back">
                                 <div class="table-responsive" id="targetElement">
                                     <table class="table table-bordered table-hover table-striped" id="tableToRemove">
                                         <thead>
@@ -181,7 +181,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr id="userRow">
                                             <td>3326</td>
                                             <td>10/21/2013</td>
                                             <td>3:29 PM</td>

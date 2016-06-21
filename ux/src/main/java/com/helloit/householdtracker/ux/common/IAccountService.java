@@ -22,6 +22,8 @@ public interface IAccountService {
     CreationOutcomes changeAccountPassword(User user, @NotNull String oldPassword, @NotNull String newPassword, @NotNull String reTypeNewPassword);
 
     List<User> getUserList();
+
+    User getUser(Integer id);
     enum CreationOutcomes {
         SUCCESS,
         RETYPED_PASSWORD_DO_NOT_MATCH,
