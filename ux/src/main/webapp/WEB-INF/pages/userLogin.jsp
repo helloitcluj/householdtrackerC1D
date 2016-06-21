@@ -52,15 +52,19 @@
         var url = $(this).attr("action");
         var posting = $.post(url,{Uname: $("#userName")[0].value, Pasword: $("#password")[0].value})
         posting.done(function(loginResult){
-                if(loginResult.kind ==="SUCCESS"){
-                    window.location.href = "../";
-                }
-                else{
-                    $("#errorMessage").empty().append(loginResult.message);
-                }
-            });
+            if(loginResult.kind ==="SUCCESS"){
+                window.location.href = "../";
+            }
+            else{
+                $("#errorMessage").empty().append(loginResult.message);
+            }
+        });
+
+        posting.fail(function(loginResult){
+            $("#errorMessage").empty().append("Could not find server!");
         });
     });
+});
 
 </script>
 
