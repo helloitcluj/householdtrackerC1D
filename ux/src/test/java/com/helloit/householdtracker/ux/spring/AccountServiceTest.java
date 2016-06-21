@@ -186,6 +186,10 @@ public class AccountServiceTest {
         }
 
         @Override
+        public User findOneById(Integer integer) {
+            return null;
+        }
+        @Override
         public boolean exists(Integer integer) {
             return false;
         }

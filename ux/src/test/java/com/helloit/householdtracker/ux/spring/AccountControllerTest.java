@@ -155,6 +155,50 @@ public class AccountControllerTest {
                 .andExpect(view().name(AccountController.LOGIN_ERROR))
          ;
     }
+
+    //Login AJAX
+    @Test
+    public void test06_loginAjaxSuccessTest() throws Exception {
+        mockMvc.perform(post("/account/userLoginController")
+                .param("Uname", "aron")
+                .param("Pasword", "123"))
+
+        ;
+    }
+
+    @Test
+    public void test07_loginAjaxInvalidCredentialTest() throws Exception {
+        mockMvc.perform(post("/account/userLoginController")
+                .param("Uname", "aronka")
+                .param("Pasword", "123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(AccountController.LOGIN_ERROR))
+                .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Invalid credentials!"))
+        ;
+    }
+
+    @Test
+    public void test08_loginAjaxMissingUsernameTest() throws Exception {
+        mockMvc.perform(post("/account/userLoginController")
+                .param("Uname", "")
+                .param("Pasword", "123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(AccountController.LOGIN_ERROR))
+                .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Please enter a username!"))
+        ;
+    }
+
+    @Test
+    public void test09_loginAjaxMissingPasswordTest() throws Exception {
+        mockMvc.perform(post("/account/userLoginController")
+                .param("Uname", "aron")
+                .param("Pasword", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name(AccountController.LOGIN_ERROR))
+                .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Please enter a password!"))
+        ;
+    }
+
     //Change Password Navigation TESTS
     @Test
     public void changePasswordNavigationTest() throws Exception {
@@ -167,7 +211,7 @@ public class AccountControllerTest {
     //Change password  TESTS
     @NotNull
     private HashMap<String, Object> setSessionAttributes(final String testUserName, String testUserPassword) {
-        HashMap<String, Object> sessionAttributes = new HashMap<String, Object>();
+        HashMap<String, Object> sessionAttributes = new HashMap<>();
 
         User loggedInUser = new User();
         loggedInUser.setUserName(testUserName);
