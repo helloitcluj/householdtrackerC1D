@@ -92,6 +92,14 @@ public class AccountControllerTest {
         ;
     }
 
+    @Test
+    public void userRegistrationTest() throws Exception {
+        mockMvc.perform(get("/account/userRegistration"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("userRegistration"))
+        ;
+    }
+
     //User Login TESTS
     @Test
     public void test01_loginSuccessTest() throws Exception {
@@ -136,11 +144,17 @@ public class AccountControllerTest {
         ;
     }
 
-
+    @Test
+    public void test05_loginTest() throws Exception {
+        mockMvc.perform(get("/account/userLoginController"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(AccountController.LOGIN_ERROR))
+         ;
+    }
     //Change Password Navigation TESTS
     @Test
     public void changePasswordNavigationTest() throws Exception {
-        mockMvc.perform(post("/account/changePasswordNavigationController"))
+        mockMvc.perform(get("/account/changePasswordNavigationController"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.PASSWORD_CHANGE))
         ;
@@ -162,7 +176,7 @@ public class AccountControllerTest {
     public void test11_changePasswordDoNotMachTest() throws Exception {
         mockMvc.perform(post("/account/changePasswordController")
                 .param("oldPassword", "123")
-                .param("Pasword", "1234").param("reTypeNewPassword", "1234"))
+                .param("newPassword", "12345").param("reTypeNewPassword", "1234"))
                 .andExpect(status().isOk())
                 .andExpect(view().name(AccountController.PASSWORD_CHANGE))
                 .andExpect(model().attribute(AccountController.MESSAGE_TAG, "Passwords do not match. Plese re-type!"))

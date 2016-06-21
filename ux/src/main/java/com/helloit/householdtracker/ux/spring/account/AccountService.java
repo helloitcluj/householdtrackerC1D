@@ -6,9 +6,7 @@ import com.helloit.householdtracker.ux.common.repository.IUserRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,17 +93,17 @@ public class AccountService implements IAccountService {
         return loggedInUser;
     }
 
-    public CreationOutcomes changeAccountPassword(User user, @NotNull String oldPassword, @NotNull String newPassword, @NotNull String reTypeNewPassword ){
+    public CreationOutcomes changeAccountPassword(@NotNull User user, @NotNull String oldPassword, @NotNull String newPassword, @NotNull String reTypeNewPassword ){
     CreationOutcomes result;
 
     if(oldPassword.equals("")){
         result = CreationOutcomes.MISSING_PASSWORD;
-    } else if(!oldPassword.equals(user.getPassword())) {
-        result = CreationOutcomes.INVALID_CREDENTIAL;
-    } else if(newPassword.equals("") && reTypeNewPassword.equals("")){
+    } else if(newPassword.equals("") || reTypeNewPassword.equals("")){
         result = CreationOutcomes.MISSING_NEW_PASSWORD;
     } else if(!newPassword.equals(reTypeNewPassword)){
         result = CreationOutcomes.RETYPED_PASSWORD_DO_NOT_MATCH;
+    } else if(!oldPassword.equals(user.getPassword())) {
+        result = CreationOutcomes.INVALID_CREDENTIAL;
     } else {
         user.setPassword(newPassword);
         final User savedEntity = userRepository.save(user);
