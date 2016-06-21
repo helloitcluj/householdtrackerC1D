@@ -4,7 +4,8 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>servlets hello world!</title>
+    <title>Registration page</title>
+    <link rel="icon" href="../images/favicon.ico">
 </head>
 <body>
 
@@ -30,7 +31,7 @@
                    name="retype">
         </div>
         <div id="login" style="${displayMetod}"><input type="submit" value="Register" class="btn-default" style="margin-top: 20px"></div>
-        <div style="margin-top: 20px; color:red">${message}</div>
+        <div style="margin-top: 20px; color:#2d77ff">${message}</div>
         <div><a href="userLoginController">Login</a></div>
         <div id="errorMessage"></div>
     </form>
@@ -58,7 +59,15 @@
 
             posting.done(function(message){
 
-                $('#errorMessage').empty().append(message);
+                var messageDiv = $('<div class="alert alert-danger"  role="alert"></div>');
+                messageDiv.append(message);
+                $('#errorMessage').empty().append(messageDiv);
+
+            });
+
+            posting.fail(function(message){
+
+                $('#errorMessage').empty().append("Could not find server!!");
 
             });
 
