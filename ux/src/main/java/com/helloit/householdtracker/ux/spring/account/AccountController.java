@@ -165,12 +165,11 @@ public class AccountController {
     }
 
     @RequestMapping(path="logoutController" ,method = RequestMethod.GET)
-    public String userLogout(HttpSession session) {
+    public @ResponseBody void userLogout(HttpSession session) {
 
         final String resultPage="redirect:/";
         session.invalidate();
 
-        return resultPage;
     }
 
     @RequestMapping(path="changePasswordNavigationController" ,method = RequestMethod.GET)

@@ -71,7 +71,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="account/logoutController"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a id = "logoutLink"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -271,6 +271,20 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="js/sb-admin-2.js"></script>
+
+<script type = "text/javascript">
+    $(function() {
+        $("#logoutLink").click(function(){
+            console.log('click');
+            var getting = $.get("account/logoutController");
+            getting.done(function(){
+                console.log('done');
+                window.location.href = "account/userLoginController";
+            })
+        })
+    })
+
+</script>
 
 </body>
 
