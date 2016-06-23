@@ -1,5 +1,7 @@
 package com.helloit.householdtracker.ux.common.entities;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import javax.persistence.*;
 
 /**
@@ -18,6 +20,8 @@ public class User {
     private String username;
 
     private String password;
+
+    private Boolean disabled;
 
     public Integer getId() {
         return id;
@@ -41,5 +45,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 }

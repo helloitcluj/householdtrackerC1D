@@ -280,4 +280,13 @@ public class AccountController {
         return resultPage;
     }
 
+    @RequestMapping(path="saveUserDetails" ,method = RequestMethod.POST)
+    @ResponseBody public String saveUserDetails(User user, boolean disabled) {
+
+        String result = user.getUserName() + " Success!!!";
+        //User user = registerService.getUser(id);
+
+        return result;
+    }
+
 }
