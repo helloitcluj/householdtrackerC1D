@@ -25,7 +25,7 @@ public class AccountFilter implements Filter {
 
         String requestURI = httpServletRequest.getRequestURI();
 
-        if(requestURI.contains("/account/")){
+        if((requestURI.startsWith(httpServletRequest.getContextPath() + "/account/")) || (requestURI.startsWith(httpServletRequest.getContextPath() + "/css/"))){
             chain.doFilter(req, resp);
         } else {
             HttpSession httpSession = httpServletRequest.getSession(false);
