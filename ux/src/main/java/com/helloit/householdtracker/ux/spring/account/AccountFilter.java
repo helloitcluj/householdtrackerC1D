@@ -25,16 +25,29 @@ public class AccountFilter implements Filter {
 
         String requestURI = httpServletRequest.getRequestURI();
 
-        if((requestURI.startsWith(httpServletRequest.getContextPath() + "/account/")) || (requestURI.startsWith(httpServletRequest.getContextPath() + "/css/"))){
+        if((requestURI.startsWith(httpServletRequest.getContextPath() + "/account/")) ||
+           (requestURI.startsWith(httpServletRequest.getContextPath() + "/css/")) ||
+           (requestURI.startsWith(httpServletRequest.getContextPath() + "/images/")) ||
+           (requestURI.startsWith(httpServletRequest.getContextPath() + "/js/"))){
+
             chain.doFilter(req, resp);
+
         } else {
+
             HttpSession httpSession = httpServletRequest.getSession(false);
+
             if(httpSession != null){
+
                 User currentUser = (User) httpSession.getAttribute("currentUser");
+
                 if (currentUser != null){
+
                     chain.doFilter(req, resp);
+
                 } else {
+
                     httpServletResponse.sendRedirect("account/userLoginController");
+
                 }
 
             } else {
