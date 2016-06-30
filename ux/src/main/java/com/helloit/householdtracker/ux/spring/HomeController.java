@@ -18,8 +18,10 @@ public class HomeController {
 
     @RequestMapping(path = "/")
     public String homeRedirect(HttpSession session, ModelMap model) {
-            return "homepage";
+        User loggedInUser = (User) session.getAttribute("currentUser");
+        if(loggedInUser != null) {
+            model.addAttribute("loggedInUser", loggedInUser.getUserName());
+        }
+        return "homepage";
     }
-
-
 }

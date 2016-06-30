@@ -38,6 +38,7 @@ public class AccountService implements IAccountService {
                         final User entity = new User();
                         entity.setUserName(uname);
                         entity.setPassword(pasword);
+                        entity.setDisabled(false);
                         final User savedEntity = userRepository.save(entity);
                         result = CreationOutcomes.SUCCESS;
                     } else {
@@ -67,7 +68,11 @@ public class AccountService implements IAccountService {
                 if (users.size() == 0) {
                     result = CreationOutcomes.INVALID_CREDENTIAL;
                 } else {
-                    result = CreationOutcomes.SUCCESS;
+                    if(users.get(0).getDisabled() != null && users.get(0).getDisabled()){
+                        result = CreationOutcomes.INVALID_CREDENTIAL;
+                    } else {
+                        result = CreationOutcomes.SUCCESS;
+                    }
                 }
             } else {
                 result = CreationOutcomes.MISSING_USERNAME;
@@ -121,6 +126,15 @@ public class AccountService implements IAccountService {
     public User getUser(Integer id){
         User user = userRepository.findOneById(id);
         return user;
+    }
+
+    public UserTransfer getUserTransfer(User user){
+        UserTransfer userTransfer = new UserTransfer(user);
+        return userTransfer;
+    }
+
+    public void saveUserDetails(User user){
+        User savedUser = userRepository.save(user);
     }
 
 }

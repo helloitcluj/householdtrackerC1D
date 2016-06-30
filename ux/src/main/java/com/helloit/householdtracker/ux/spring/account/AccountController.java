@@ -7,18 +7,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 @Controller
 
 @RequestMapping(path="account")
+
 public class AccountController {
 
     public static final String MESSAGE_TAG = "message";
@@ -232,12 +229,12 @@ public class AccountController {
 
 
     @RequestMapping(path="getUserProfile" ,method = RequestMethod.POST)
-    @ResponseBody public User getUser(Integer id) {
+    @ResponseBody public UserTransfer getUser(Integer id) {
 
-        String result = "";
         User user = registerService.getUser(id);
+        UserTransfer userTransfer = new UserTransfer(user);
 
-        return user;
+        return userTransfer;
     }
 
     @RequestMapping(path="registerAjax", method = RequestMethod.POST)
@@ -281,12 +278,14 @@ public class AccountController {
     }
 
     @RequestMapping(path="saveUserDetails" ,method = RequestMethod.POST)
-    @ResponseBody public String saveUserDetails(User user, boolean disabled) {
+    @ResponseBody public String saveUserDetails(@RequestBody UserTransfer userTransfer) {
 
-        String result = user.getUserName() + " Success!!!";
-        //User user = registerService.getUser(id);
+        User user = registerService.getUser(userTransfer.getId());
+        user.setDisabled(userTransfer.getDisabled());
 
-        return result;
+        registerService.saveUserDetails(user);
+
+        return "Success";
     }
 
 }

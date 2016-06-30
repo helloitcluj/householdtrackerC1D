@@ -2,6 +2,7 @@ package com.helloit.householdtracker.ux.common;
 
 
 import com.helloit.householdtracker.ux.common.entities.User;
+import com.helloit.householdtracker.ux.spring.account.UserTransfer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,11 @@ public interface IAccountService {
     List<User> getUserList();
 
     User getUser(Integer id);
+
+    UserTransfer getUserTransfer(User user);
+
+    void saveUserDetails(User user);
+
     enum CreationOutcomes {
         SUCCESS,
         RETYPED_PASSWORD_DO_NOT_MATCH,
