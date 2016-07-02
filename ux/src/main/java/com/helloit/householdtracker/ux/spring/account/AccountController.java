@@ -164,7 +164,7 @@ public class AccountController {
     @RequestMapping(path="logoutController" ,method = RequestMethod.GET)
     public @ResponseBody void userLogout(HttpSession session) {
 
-        final String resultPage="redirect:/";
+        final String resultPage="redirect:/index.html";
         session.invalidate();
 
     }

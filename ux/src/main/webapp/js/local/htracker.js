@@ -27,18 +27,28 @@ $(function(){
                 //console.log("SUCCESS: ", data);
 
                 UserPage.value = data;
-                result = "";
 
+                var $table = $('<table class=\"table table-bordered table-hover table-striped\" id=\"tableToRemove\"></table>');
+                var $tHeader  = $('<thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Disabled</th></tr></thead>');
+                var $tBody = $('<tbody></tbody>');
+                var $row = $('<tr id=\"userRow\"></tr>');
+                var $cellId = $('<td></td>').append(data.id);
+                var $cellUserName = $('<td></td>').append(data.username);
+                var $cellPassword = $('<td></td>').append(data.password);
+                var $cellDisabled = $('<td></td>').append(data.disabledUser);
 
-                result += "<table class=\"table table-bordered table-hover table-striped\" id=\"tableToRemove\">";
-                result +="<thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Disabled</th></tr></thead><tbody>";
-                result += "<tr id=\"userRow\"><td>"+ data.id + "</td><td>"+ data.username + "</td><td>" + data.password + "</td><td>" + data.disabledUser + "</td></tr>";
-                result += "</tbody><table>";
+                $row.append($cell).append($cellUserName).append($cellPassword).append($cellDisabled);
+
+                $tBody.append($row);
+                $table.append($tHeader);
+                $table.append($tBody);
+
+                //result += "<td>"+ data.id + "</td><td>"+ data.username + "</td><td>" + data.password + "</td><td>" + data.disabledUser + "</td>";
 
                 var $disableSelector = $('<div>Disabled: <input id="disabled" type="checkbox"/></div></br>');
                 var $saveButton = $('<div><input type="button" value="Save" id="saveUserButton"</div>');
 
-                $('#targetElement').html(result);
+                $('#targetElement').html($table);
                 $('#targetElement').append($disableSelector);
                 $('#targetElement').append($saveButton);
                 $('h1.page-header').empty().text(data.username);

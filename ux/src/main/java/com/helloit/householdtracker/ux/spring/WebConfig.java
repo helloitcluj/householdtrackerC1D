@@ -20,6 +20,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         cssRegistration.addResourceLocations("/css/");
         final ResourceHandlerRegistration imagesRegistration = registry.addResourceHandler("/images/**");
         imagesRegistration.addResourceLocations("/images/");
+        final ResourceHandlerRegistration homePageRegistration = registry.addResourceHandler("/*.html");
+        homePageRegistration.addResourceLocations("/");
     }
 
     @Bean
