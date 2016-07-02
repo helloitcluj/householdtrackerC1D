@@ -119,7 +119,6 @@ helloIt.createMainContainerTitle = function() {
         <div class="row">\
             <div class="col-lg-12">\
                 <h1 class="page-header">Homepage</h1>\
-                <p>${message}</p>\
             </div>\
             <!-- /.col-lg-12 -->\
         </div>\
@@ -130,7 +129,6 @@ helloIt.createMainContainerTitle = function() {
 helloIt.createMainContainerContent = function() {
     var $mainContainerTitleContent = $('\
         <div class="table-responsive" id="targetElement">\
-            <input type="button" id="testButton" value="back">\
         </div>\
     ')
     return $mainContainerTitleContent;
@@ -138,25 +136,45 @@ helloIt.createMainContainerContent = function() {
 
 helloIt.createAddButton = function() {
     var $addButton = $('\
-    <div class="modal fade" tabindex="-1" role="dialog">\
+<button id="addExpense" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#expenseModal">Add expense</button>\
+    ')
+    return $addButton;
+}
+
+helloIt.createExpenseModal = function() {
+    var $expenseModal = $('\
+    <div class="modal fade" id="expenseModal" tabindex="-1" role="dialog">\
     <div class="modal-dialog">\
     <div class="modal-content">\
     <div class="modal-header">\
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-<h4 class="modal-title">Modal title</h4>\
-</div>\
-<div class="modal-body">\
-    <p>One fine body&hellip;</p>\
-</div>\
-<div class="modal-footer">\
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
-    <button type="button" class="btn btn-primary">Save changes</button>\
-</div>\
-</div><!-- /.modal-content -->\
-</div><!-- /.modal-dialog -->\
-</div><!-- /.modal -->\
-')
-return $addButton;
+    <h4 class="modal-title">Add expense</h4>\
+    </div>\
+    <div class="modal-body">\
+        <form>\
+        <div class="form-group">\
+            <label for="expense-date" class="control-label">Date:</label>\
+            <input type="date" class="form-control" id="expenseDate">\
+        </div>\
+        <div class="form-group">\
+            <label for="expense-amount" class="control-label">Amount:</label>\
+            <input type="number" class="form-control" id="expenseAmount">\
+        </div>\
+        <div class="form-group">\
+            <label for="expense-description" class="control-label">Description:</label>\
+            <input type="text" class="form-control" id="expenseDescription">\
+        </div>\
+        </form>\
+    </div>\
+    <div class="modal-footer">\
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
+        <button type="button" class="btn btn-primary">Save changes</button>\
+    </div>\
+    </div><!-- /.modal-content -->\
+    </div><!-- /.modal-dialog -->\
+    </div><!-- /.modal -->\
+    ')
+    return $expenseModal;
 }
 
 $(function() {

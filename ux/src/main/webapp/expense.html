@@ -53,14 +53,11 @@
 <script src="js/sb-admin-2.js"></script>
 
 <script type = "text/javascript">
+    var containerContent  = helloIt.createMainContainerContent().prepend(helloIt.createExpenseModal()).prepend(helloIt.createAddButton());
+    var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend(helloIt.createMainContainerTitle());
 
-var x = helloIt.createMainContainer().prepend(helloIt.createMainContainerTitle().prepend(helloIt.createAddButton()));
-    $('#expensewrapper').prepend(x);
-   // $('#expensewrapper').prepend();
+    $('#expensewrapper').prepend(mainContainer);
     $('#expensewrapper').prepend(helloIt.createNavbar());
-
-
-
 
 </script>
 

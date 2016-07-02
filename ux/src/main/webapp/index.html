@@ -46,8 +46,11 @@
 
 <div id="wrapper">
     <script type="text/javascript">
-        $('#wrapper').append(helloIt.createNavbar());
-        $('#wrapper').append(helloIt.createMainContainer());
+        var containerContent  = helloIt.createMainContainerContent();
+        var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend(helloIt.createMainContainerTitle());
+
+        $('#wrapper').prepend(mainContainer);
+        $('#wrapper').prepend(helloIt.createNavbar());t
     </script>
 </div>
 <!-- /#wrapper -->

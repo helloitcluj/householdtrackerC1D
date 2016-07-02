@@ -8,11 +8,6 @@ $(function(){
         ajaxGetAllUsers()
     });
 
-    $('#testButton').click(function(){
-        ajaxGetAllUsers()
-    });
-
-
     $('body').on('click','#userRow', function(){
         var id = $(this).find('td').first().text();
 
@@ -27,6 +22,7 @@ $(function(){
                 //console.log("SUCCESS: ", data);
 
                 UserPage.value = data;
+                result = "";
 
                 var $table = $('<table class=\"table table-bordered table-hover table-striped\" id=\"tableToRemove\"></table>');
                 var $tHeader  = $('<thead><tr><th>ID</th><th>Username</th><th>Password</th><th>Disabled</th></tr></thead>');
@@ -45,15 +41,21 @@ $(function(){
 
                 var $disableSelector = $('<div>Disabled: <input id="disabled" type="checkbox"/></div></br>');
                 var $saveButton = $('<div><input type="button" value="Save" id="saveUserButton"</div>');
+                var $backButton = $('<input type="button" id="testButton" value="back">');
 
                 $('#targetElement').html($table);
                 $('#targetElement').append($disableSelector);
                 $('#targetElement').append($saveButton);
+                $('#targetElement').append($backButton);
                 $('h1.page-header').empty().text(data.username);
 
                 $('body').find('#disabled').prop('checked', UserPage.value.disabledUser);
             }
         });
+    });
+
+    $('body').on('click', '#testButton', function(){
+        ajaxGetAllUsers()
     });
 
     $('body').on('click', '#saveUserButton', function(){
