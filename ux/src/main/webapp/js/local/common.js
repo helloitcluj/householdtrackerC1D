@@ -107,57 +107,6 @@ helloIt.createNavbar = function() {
 helloIt.createMainContainer = function() {
     var $mainContainer = $('\
         <div id="page-wrapper">\
-        <div class="row">\
-        <div class="col-lg-12">\
-        <h1 class="page-header">Homepage</h1>\
-        <p>${message}</p>\
-        </div>\
-            <!-- /.col-lg-12 -->\
-        </div>\
-\
-            <!-- /.row -->\
-        <div class="col-lg-10">\
-        <div class="panel panel-default">\
-        <div class="panel-heading">\
-        <i class="fa fa-bar-chart-o fa-fw"></i> Summary table for current month\
-    <div class="pull-right">\
-        <div class="btn-group">\
-        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">\
-        Actions\
-        <span class="caret"></span>\
-        </button>\
-        <ul class="dropdown-menu pull-right" role="menu">\
-        <li><a href="#">Export to excel</a>\
-    </li>\
-    </ul>\
-    </div>\
-    </div>\
-    </div>\
-        <!-- /.panel-heading -->\
-    <div class="panel-body">\
-        <div class="row">\
-        <div class="col-lg-4" id="tableContainer">\
-        <input type="button" id="testButton" value="back">\
-        <div class="table-responsive" id="targetElement">\
-\
-    </div>\
-        <!-- /.table-responsive -->\
-    </div>\
-        <!-- /.col-lg-4 (nested) -->\
-    <div class="col-lg-8">\
-        <div id="morris-bar-chart"></div>\
-        </div>\
-            <!-- /.col-lg-8 (nested) -->\
-        </div>\
-            <!-- /.row -->\
-        </div>\
-            <!-- /.panel-body -->\
-        </div>\
-            <!-- /.panel -->\
-        </div>\
-            <!-- /.col-lg-8 -->\
-        </div>\
-            <!-- /.row -->\
         </div>\
     ')
 
@@ -165,3 +114,24 @@ helloIt.createMainContainer = function() {
 }
 
 
+helloIt.createMainContainerTitle = function() {
+    var $mainContainerTitle = $('\
+        <div class="row">\
+            <div class="col-lg-12">\
+                <h1 class="page-header">Homepage</h1>\
+                <p>${message}</p>\
+            </div>\
+            <!-- /.col-lg-12 -->\
+        </div>\
+    ')
+    return $mainContainerTitle;
+}
+
+helloIt.createMainContainerContent = function() {
+    var $mainContainerTitleContent = $('\
+        <div class="table-responsive" id="targetElement">\
+            <input type="button" id="testButton" value="back">\
+        </div>\
+    ')
+    return $mainContainerTitleContent;
+}
