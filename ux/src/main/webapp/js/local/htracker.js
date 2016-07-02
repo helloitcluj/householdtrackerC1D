@@ -37,13 +37,11 @@ $(function(){
                 var $cellPassword = $('<td></td>').append(data.password);
                 var $cellDisabled = $('<td></td>').append(data.disabledUser);
 
-                $row.append($cell).append($cellUserName).append($cellPassword).append($cellDisabled);
+                $row.append($cellId).append($cellUserName).append($cellPassword).append($cellDisabled);
 
                 $tBody.append($row);
                 $table.append($tHeader);
                 $table.append($tBody);
-
-                //result += "<td>"+ data.id + "</td><td>"+ data.username + "</td><td>" + data.password + "</td><td>" + data.disabledUser + "</td>";
 
                 var $disableSelector = $('<div>Disabled: <input id="disabled" type="checkbox"/></div></br>');
                 var $saveButton = $('<div><input type="button" value="Save" id="saveUserButton"</div>');
