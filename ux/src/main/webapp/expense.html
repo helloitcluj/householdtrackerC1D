@@ -12,7 +12,7 @@
     <script src="js/jquery-3.0.0.min.js"></script>
     <script src="js/local/htracker.js"></script>
     <script src="js/local/common.js"></script>
-    <title>HouseHoldTracker</title>
+    <title>HouseHoldTracker Expenses</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -38,51 +38,8 @@
     <![endif]-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-
 </head>
-
 <body>
 
-<div id="wrapper">
-    <script type="text/javascript">
-        $('#wrapper').append(helloIt.createNavbar());
-        $('#wrapper').append(helloIt.createMainContainer());
-    </script>
-</div>
-<!-- /#wrapper -->
-
-<!-- jQuery -->
-<script src="js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="js/metisMenu.min.js"></script>
-
-<!-- Morris Charts JavaScript -->
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.min.js"></script>
-<!--<script src="../../js/morris-data.js"></script>-->
-
-<!-- Custom Theme JavaScript -->
-<script src="js/sb-admin-2.js"></script>
-
-<script type = "text/javascript">
-    $(function() {
-        $("#logoutLink").click(function(){
-            console.log('click');
-            var getting = $.get("account/logoutController");
-            getting.done(function(){
-                console.log('done');
-                window.location.href = "account/userLoginController";
-            })
-        })
-    })
-
-</script>
-
 </body>
-
 </html>
