@@ -9,5 +9,5 @@ import java.util.Date;
  * Created by Student on 6/29/2016.
  */
 public interface IExpenseService {
-    Expense save(Calendar date, double amount, String description, Integer userId);
+    Expense save(String date, double amount, String description, Integer userId);
 }
