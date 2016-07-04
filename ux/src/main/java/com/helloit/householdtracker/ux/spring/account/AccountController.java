@@ -288,4 +288,14 @@ public class AccountController {
         return "Success";
     }
 
+
+    @RequestMapping(path="getCurrentUser" ,method = RequestMethod.POST)
+    @ResponseBody public String getCurrentUser(HttpSession session) {
+
+        User currentUser = (User)session.getAttribute("currentUser");
+        String currentUserName = currentUser.getUserName();
+
+        return currentUserName;
+    }
+
 }

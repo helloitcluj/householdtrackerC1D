@@ -4,6 +4,12 @@
 $(function(){
     window.UserPage = {};
 
+    var posting = $.post('account/getCurrentUser');
+    posting.done(function(result){
+        $('#currentUser').text(result);
+    });
+
+
     $('#adminMenuItem').click(function(){
         ajaxGetAllUsers()
     });
@@ -81,6 +87,9 @@ $(function(){
         });
     });
 });
+
+
+
 
 
 function ajaxGetAllUsers() {
