@@ -89,9 +89,6 @@ $(function(){
 });
 
 
-
-
-
 function ajaxGetAllUsers() {
     $('#tableToRemove').remove();
     $.ajax({

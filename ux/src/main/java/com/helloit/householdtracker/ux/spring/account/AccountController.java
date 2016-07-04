@@ -1,6 +1,8 @@
 package com.helloit.householdtracker.ux.spring.account;
 
 import com.helloit.householdtracker.ux.common.IAccountService;
+import com.helloit.householdtracker.ux.common.IExpenseService;
+import com.helloit.householdtracker.ux.common.entities.Expense;
 import com.helloit.householdtracker.ux.common.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +30,8 @@ public class AccountController {
     @Autowired
     private IAccountService registerService;
 
+    @Autowired
+    private IExpenseService expenseService;
 
     @RequestMapping(path = "userRegistration", method = RequestMethod.GET)
     public String userRegistration() {
@@ -220,11 +224,17 @@ public class AccountController {
     @RequestMapping(path="testAjax" ,method = RequestMethod.POST)
     @ResponseBody public List<User> testAjax(HttpSession session) {
 
-        String result = "";
-        User user = (User)session.getAttribute("currentUser");
         List<User> users = registerService.getUserList();
 
         return users;
+    }
+
+    @RequestMapping(path="expensesAjax" ,method = RequestMethod.POST)
+    @ResponseBody public List<Expense> expensesAjax() {
+
+        List<Expense> expenses = expenseService.getExpenseList();
+
+        return expenses;
     }
 
 
@@ -286,16 +296,6 @@ public class AccountController {
         registerService.saveUserDetails(user);
 
         return "Success";
-    }
-
-
-    @RequestMapping(path="getCurrentUser" ,method = RequestMethod.POST)
-    @ResponseBody public String getCurrentUser(HttpSession session) {
-
-        User currentUser = (User)session.getAttribute("currentUser");
-        String currentUserName = currentUser.getUserName();
-
-        return currentUserName;
     }
 
 }

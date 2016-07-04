@@ -177,6 +177,31 @@ helloIt.createExpenseModal = function() {
     return $expenseModal;
 }
 
+
+helloIt.createExpensesTable = function ajaxGetAllExpenses() {
+    $('#expenseTable').remove();
+    $.ajax({
+        type: "POST",
+        url: "account/expensesAjax",
+        data: 'json',
+
+        success: function (data) {
+            result = "";
+            result += "<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\">";
+            result += "<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead><tbody>";
+
+            $.each(data, function (expense) {
+
+                result += "<tr id=\"expenseRow\"><td>" + expense.date + "</td><td>" + expense.amount + "</td><td>" + expense.description + "</td><td>";
+
+            });
+            result += "</tbody><table>";
+            $('#targetElement').html(result);
+            $('h1.page-header').empty().text('Existing expenses');
+        }
+    });
+}
+
 $(function() {
     $("#logoutLink").click(function(){
         console.log('click');
