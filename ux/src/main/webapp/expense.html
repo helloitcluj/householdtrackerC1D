@@ -59,6 +59,33 @@
     $('#expensewrapper').prepend(mainContainer);
     $('#expensewrapper').prepend(helloIt.createNavbar());
 
+    helloIt.hideModal = function(){
+        $("#expenseModal").modal("hide");
+    }
+
+    $(function(){
+       $('#saveExpenseButton').click(function(){
+            var expense = {
+                date : $('#expenseDate').val(),
+                amount : $('#expenseAmount').val(),
+                description : $('#expenseDescription').val()
+            }
+           $.ajax({
+               type: "POST",
+               url: "expense/create",
+               data: expense,
+
+               success: function (data) {
+                    helloIt.hideModal();
+               },
+
+               error: function(){
+                   alert ('Server error during saving the expense')
+               }
+           });
+       });
+    });
+
 </script>
 
 

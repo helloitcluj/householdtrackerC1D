@@ -28,7 +28,7 @@ public class ExpenseController {
 
     @RequestMapping(path="create" ,method = RequestMethod.POST)
     @ResponseBody
-    public String create(final HttpSession session, final Calendar date, final double amount, final String description) {
+    public String create(final HttpSession session, final String date, final double amount, final String description) {
 
         Integer userId = null;
         User currentUser = (User)session.getAttribute("currentUser");
