@@ -154,7 +154,7 @@ helloIt.createExpenseModal = function() {
         <form>\
         <div class="form-group">\
             <label for="expense-date" class="control-label">Date:</label>\
-            <input type="date" class="form-control" id="expenseDate">\
+            <input type="datetime-local" class="form-control" id="expenseDate">\
         </div>\
         <div class="form-group">\
             <label for="expense-amount" class="control-label">Amount:</label>\
