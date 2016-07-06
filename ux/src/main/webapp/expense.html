@@ -53,17 +53,25 @@
 <script src="js/vendor/sb-admin-2.js"></script>
 
 <script type = "text/javascript">
-    var containerContent  = helloIt.createMainContainerContent().prepend(helloIt.createExpenseModal()).prepend(helloIt.createAddButton());
+    var containerContent  = helloIt.createMainContainerContent().prepend(helloIt.createExpenseModal()).prepend(helloIt.createTableContainer()).prepend(helloIt.createAddButton());
     var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend(helloIt.createMainContainerTitle());
+
+    helloIt.createExpensesTable();
 
     $('#expensewrapper').prepend(mainContainer);
     $('#expensewrapper').prepend(helloIt.createNavbar());
+
 
     helloIt.hideModal = function(){
         $("#expenseModal").modal("hide");
     }
 
+    
+
     $(function(){
+
+
+
        $('#saveExpenseButton').click(function(){
             var expense = {
                 date : $('#expenseDate').val(),
@@ -84,6 +92,9 @@
                }
            });
        });
+
+        helloIt.createExpensesTable();
+
     });
 
 </script>

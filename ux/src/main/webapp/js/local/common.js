@@ -129,9 +129,20 @@ helloIt.createMainContainerTitle = function() {
 helloIt.createMainContainerContent = function() {
     var $mainContainerTitleContent = $('\
         <div class="table-responsive" id="targetElement">\
+           \
         </div>\
     ')
     return $mainContainerTitleContent;
+}
+
+
+    helloIt.createTableContainer = function() {
+    var $tableContainer = $('\
+        <div class="table-responsive" id="expensesElement">\
+           \
+        </div>\
+    ')
+    return $tableContainer;
 }
 
 helloIt.createAddButton = function() {
@@ -179,7 +190,15 @@ helloIt.createExpenseModal = function() {
 
 
 helloIt.createExpensesTable = function ajaxGetAllExpenses() {
-    $('#expenseTable').remove();
+
+    var myNode = document.getElementById("expensesElement");
+
+    if (myNode != null) {
+        while (myNode.firstChild) {
+            myNode.removeChild(myNode.firstChild);
+        }
+    }
+
     $.ajax({
         type: "POST",
         url: "account/expensesAjax",
@@ -190,17 +209,17 @@ helloIt.createExpensesTable = function ajaxGetAllExpenses() {
             result += "<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\">";
             result += "<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead><tbody>";
 
-            $.each(data, function (expense) {
+            $.each(data, function (index, expense) {
 
-                result += "<tr id=\"expenseRow\"><td>" + expense.date + "</td><td>" + expense.amount + "</td><td>" + expense.description + "</td><td>";
+                result += "<tr id=\"expenseRow\"><td>" + expense.id + "</td><td>" + expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth+"</td><td>" + expense.amount + "</td><td>" + expense.description + "</td>";
 
             });
             result += "</tbody><table>";
-            $('#targetElement').html(result);
+            $('#expensesElement').append(result);
             $('h1.page-header').empty().text('Existing expenses');
         }
     });
-}
+};
 
 $(function() {
     $("#logoutLink").click(function(){

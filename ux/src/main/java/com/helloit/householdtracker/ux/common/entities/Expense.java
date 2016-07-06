@@ -31,6 +31,9 @@ public class Expense {
         this.userId = userId;
     }
 
+    public Expense(){
+    }
+
 
     public Integer getId() {
         return id;
