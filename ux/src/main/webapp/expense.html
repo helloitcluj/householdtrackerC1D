@@ -56,8 +56,6 @@
     var containerContent  = helloIt.createMainContainerContent().prepend(helloIt.createExpenseModal()).prepend(helloIt.createTableContainer()).prepend(helloIt.createAddButton());
     var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend(helloIt.createMainContainerTitle());
 
-    helloIt.createExpensesTable();
-
     $('#expensewrapper').prepend(mainContainer);
     $('#expensewrapper').prepend(helloIt.createNavbar());
 
@@ -66,11 +64,9 @@
         $("#expenseModal").modal("hide");
     }
 
-    
 
     $(function(){
-
-
+        helloIt.createExpensesTable();
 
        $('#saveExpenseButton').click(function(){
             var expense = {
@@ -84,7 +80,8 @@
                data: expense,
 
                success: function (data) {
-                    helloIt.hideModal();
+                   helloIt.hideModal();
+                   helloIt.createExpensesTable();
                },
 
                error: function(){
@@ -92,8 +89,6 @@
                }
            });
        });
-
-        helloIt.createExpensesTable();
 
     });
 

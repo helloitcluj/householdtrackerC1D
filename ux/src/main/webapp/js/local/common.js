@@ -189,36 +189,35 @@ helloIt.createExpenseModal = function() {
 }
 
 
-helloIt.createExpensesTable = function ajaxGetAllExpenses() {
-
-    var myNode = document.getElementById("expensesElement");
-
-    if (myNode != null) {
-        while (myNode.firstChild) {
-            myNode.removeChild(myNode.firstChild);
-        }
-    }
-
+helloIt.createExpensesTable = function() {
+    var result = $('');
     $.ajax({
         type: "POST",
         url: "account/expensesAjax",
         data: 'json',
 
         success: function (data) {
-            result = "";
-            result += "<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\">";
-            result += "<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead><tbody>";
+            var $expenseTable = $('<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\"></table>');
+            var $tableHeader = $('<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead>');
+            var $tableBody = $('<tbody></tbody>');
 
             $.each(data, function (index, expense) {
 
-                result += "<tr id=\"expenseRow\"><td>" + expense.id + "</td><td>" + expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth+"</td><td>" + expense.amount + "</td><td>" + expense.description + "</td>";
+                var $dataCellID = $('<td></td>').append(expense.id);
+                var $dataCellDate = $('<td></td>').append(expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth);
+                var $dataCellAmount = $('<td></td>').append(expense.amount);
+                var $dataCellDesc = $('<td></td>').append(expense.description);
 
+
+                var $dataRow = $('<tr id=\"expenseRow\"></tr>').append($dataCellID).append($dataCellDate).append($dataCellAmount).append($dataCellDesc);
+                $tableBody.append($dataRow);
             });
-            result += "</tbody><table>";
-            $('#expensesElement').append(result);
-            $('h1.page-header').empty().text('Existing expenses');
+
+            result = $expenseTable.append($tableHeader).append($tableBody);
+            $("#expensesElement").empty().append(result);
         }
     });
+
 };
 
 $(function() {
