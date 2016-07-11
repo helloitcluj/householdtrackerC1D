@@ -221,6 +221,13 @@ public class AccountController {
     return resultPage;
     }
 
+    @RequestMapping(path="getCurrentUser" ,method = RequestMethod.POST)
+    @ResponseBody public String getCurrentUser(HttpSession session) {
+
+        User currentUser = (User)session.getAttribute("currentUser");
+        return currentUser.getUserName();
+    }
+
     @RequestMapping(path="testAjax" ,method = RequestMethod.POST)
     @ResponseBody public List<User> testAjax(HttpSession session) {
 
