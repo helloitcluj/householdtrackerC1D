@@ -204,9 +204,13 @@ helloIt.createExpensesTable = function() {
             $.each(data, function (index, expense) {
 
                 var $dataCellID = $('<td></td>').append(expense.id);
-                var $dataCellDate = $('<td></td>').append(expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth);
                 var $dataCellAmount = $('<td></td>').append(expense.amount);
                 var $dataCellDesc = $('<td></td>').append(expense.description);
+                var $dataCellDate = $('<td></td>').append('');
+
+                if (data.date != null) {
+                    $dataCellDate = $('<td></td>').append(expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth);
+                }
 
 
                 var $dataRow = $('<tr id=\"expenseRow\"></tr>').append($dataCellID).append($dataCellDate).append($dataCellAmount).append($dataCellDesc);
