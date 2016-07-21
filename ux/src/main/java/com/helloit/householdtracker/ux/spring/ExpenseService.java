@@ -41,6 +41,7 @@ public class ExpenseService implements IExpenseService {
     public List<Expense> getExpenseList() {
 
         List<Expense> expense = expenseRepository.findAll();
+        //valami
         return expense;
 
     }
