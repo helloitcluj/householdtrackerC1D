@@ -15,4 +15,5 @@ public interface IExpenseService {
 
     List<Expense> getExpenseList();
 
+    Expense getByIdAndUserId(Integer expenseId, Integer userId);
 }

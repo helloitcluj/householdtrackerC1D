@@ -41,6 +41,7 @@ public class ExpenseService implements IExpenseService {
     public List<Expense> getExpenseList() {
 
         List<Expense> expense = expenseRepository.findAll();
+        //valami
         return expense;
 
     }
@@ -58,5 +59,12 @@ public class ExpenseService implements IExpenseService {
         }
 
         return result;
+    }
+
+    public Expense getByIdAndUserId(Integer expenseId, Integer accountId){
+       Expense result = expenseRepository.getOne(expenseId);
+
+        return result == null && result.getAccountId() != accountId ? null : result;
+
     }
 }
