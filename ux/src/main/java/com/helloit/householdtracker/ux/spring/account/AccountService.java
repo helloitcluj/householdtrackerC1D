@@ -137,4 +137,8 @@ public class AccountService implements IAccountService {
         User savedUser = userRepository.save(user);
     }
 
+
+    public void sendEmail(){
+
+    }
 }

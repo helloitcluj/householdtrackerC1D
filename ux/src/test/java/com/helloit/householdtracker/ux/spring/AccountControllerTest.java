@@ -24,12 +24,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+//mandatory - related to a dependency from Gradle:
+// testCompile group: "org.springframework", name: "spring-test", version: "$springVersion"
 @RunWith(SpringJUnit4ClassRunner.class)
+
+//config classes, mandatory. Can be specifically defined for the Test
 @ContextConfiguration(classes = {TestAppConfig.class, WebConfig.class})
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Sql({ "/create-schema.sql", "/insert-test-users.sql" })
 public class AccountControllerTest {
+
+    //
     private MockMvc mockMvc;
 
     @Autowired
@@ -37,10 +43,11 @@ public class AccountControllerTest {
 
     @Before
     public void setup() {
-        mockMvc = webAppContextSetup(this.wac).build();
+        mockMvc = webAppContextSetup(this.wac).build(); //method coming from static import. See above
     }
 
-    //User Registration TESTS
+    //User Registration TESTS.
+    //Just testing the controller, how the controller readcted to the request. Not testing the model content
     @Test
     public void registrationSuccessTest() throws Exception {
         mockMvc.perform(post("/account/userRegistration")
@@ -290,12 +297,12 @@ public class AccountControllerTest {
 
 
     //User Logout TESTS
-    @Test
+/*    @Test
     public void test30_logoutSuccessTest() throws Exception {
         mockMvc.perform(get("/account/logoutController"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"))
         ;
-    }
+    }*/
 
 }

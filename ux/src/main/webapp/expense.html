@@ -68,27 +68,46 @@
     $(function(){
         helloIt.createExpensesTable();
 
-       $('#saveExpenseButton').click(function(){
+        $('#saveExpenseButton').click(function(){
             var expense = {
                 date : $('#expenseDate').val(),
                 amount : $('#expenseAmount').val(),
                 description : $('#expenseDescription').val()
             }
-           $.ajax({
-               type: "POST",
-               url: "expense/create",
-               data: expense,
+            $.ajax({
+                type: "POST",
+                url: "expense/create",
+                data: expense,
 
-               success: function (data) {
-                   helloIt.hideModal();
-                   helloIt.createExpensesTable();
-               },
+                success: function (data) {
+                    helloIt.hideModal();
+                    helloIt.createExpensesTable();
+                },
 
-               error: function(){
-                   alert ('Server error during saving the expense')
-               }
-           });
-       });
+                error: function(){
+                    alert ('Server error during saving the expense')
+                }
+            });
+        });
+
+        $('#expensesElement').on('click', '.page', function(){
+            var pageNr = $(this).text();
+            $.ajax({
+                type: "POST",
+                url: "account/expensesAjax",
+                data: {pageNr : pageNr},
+
+                success: function (data) {
+                    helloIt.hideModal();
+                    helloIt.drawTable(data);
+                },
+
+                error: function(){
+                    alert ('Server error during saving the expense')
+                }
+            });
+
+        });
 
     });
 

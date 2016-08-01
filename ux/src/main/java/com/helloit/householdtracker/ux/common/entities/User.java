@@ -8,14 +8,19 @@ import javax.persistence.*;
  * Created by Student on 5/21/2016.
  */
 
+//mandatory
 @Entity
+
+//map to db table if the entity name is not the same
 @Table(name = "users")
+
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    //used if the names are not identical
     @Column(name = "username", unique = true)
     private String username;
 

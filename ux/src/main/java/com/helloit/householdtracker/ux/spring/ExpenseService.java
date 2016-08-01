@@ -5,6 +5,8 @@ import com.helloit.householdtracker.ux.common.entities.Expense;
 import com.helloit.householdtracker.ux.common.entities.User;
 import com.helloit.householdtracker.ux.common.repository.IExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -37,12 +39,21 @@ public class ExpenseService implements IExpenseService {
         return expenseRepository.save(expense);
     }
 
-    @Override
-    public List<Expense> getExpenseList() {
 
-        List<Expense> expense = expenseRepository.findAll();
-        return expense;
+    public List<Expense> getExpenseList(String pageNr) {
 
+        int pageNrInt = Integer.parseInt(pageNr);
+
+        Page<Expense> expensePage = expenseRepository.findAll(new PageRequest(pageNrInt - 1,5));
+
+        return expensePage.getContent();
+    }
+
+    public Integer getNrOfExpenses(){
+        Integer expenseNr = 0;
+        List<Expense> expenseList = expenseRepository.findAll();
+        expenseNr = expenseList.size();
+        return expenseNr;
     }
 
     private Calendar convert(String dateAsString) {

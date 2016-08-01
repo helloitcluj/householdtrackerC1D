@@ -9,6 +9,8 @@ import java.util.List;
 /**
  * Created by Student on 5/21/2016.
  */
+
+
 public interface IUserRepository extends JpaRepository<User, Integer> {
 
     public List<User> findByUsername(String username);

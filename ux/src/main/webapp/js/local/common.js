@@ -194,35 +194,56 @@ helloIt.createExpensesTable = function() {
     $.ajax({
         type: "POST",
         url: "account/expensesAjax",
-        data: 'json',
+        data: {pageNr : 1},
 
         success: function (data) {
-            var $expenseTable = $('<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\"></table>');
-            var $tableHeader = $('<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead>');
-            var $tableBody = $('<tbody></tbody>');
-
-            $.each(data, function (index, expense) {
-
-                var $dataCellID = $('<td></td>').append(expense.id);
-                var $dataCellAmount = $('<td></td>').append(expense.amount);
-                var $dataCellDesc = $('<td></td>').append(expense.description);
-                var $dataCellDate = $('<td></td>').append('');
-
-                if (data.date != null) {
-                    $dataCellDate = $('<td></td>').append(expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth);
-                }
-
-
-                var $dataRow = $('<tr id=\"expenseRow\"></tr>').append($dataCellID).append($dataCellDate).append($dataCellAmount).append($dataCellDesc);
-                $tableBody.append($dataRow);
-            });
-
-            result = $expenseTable.append($tableHeader).append($tableBody);
-            $("#expensesElement").empty().append(result);
+            helloIt.drawTable(data);
         }
     });
-
 };
+
+helloIt.drawTable = function(object){
+    var $expenseTable = $('<table class=\"table table-bordered table-hover table-striped\" id=\"expenseTable\"></table>');
+    var $tableHeader = $('<thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Description</th></tr></thead>');
+    var $tableBody = $('<tbody></tbody>');
+    var $paginationButtons = helloIt.getNrOfPages(object.nrOfExpenses)
+
+    $.each(object.expense, function (index, expense) {
+
+        var $dataCellID = $('<td></td>').append(expense.id);
+        var $dataCellAmount = $('<td></td>').append(expense.amount);
+        var $dataCellDesc = $('<td></td>').append(expense.description);
+        var $dataCellDate = $('<td></td>').append('');
+
+        if (expense.date != null) {
+            $dataCellDate = $('<td></td>').append(expense.date.year +" - "+ expense.date.month+" - "+ expense.date.dayOfMonth);
+        }
+
+
+        var $dataRow = $('<tr id=\"expenseRow\"></tr>').append($dataCellID).append($dataCellDate).append($dataCellAmount).append($dataCellDesc);
+        $tableBody.append($dataRow);
+    });
+
+    result = $expenseTable.append($tableHeader).append($tableBody);
+    $("#expensesElement").empty().append(result).append($paginationButtons);
+}
+
+helloIt.getNrOfPages = function(nr){
+    $pageButtonsUl = $(
+        '<br><ul class="pagination">\
+        </ul>'
+    );
+
+    for(i=0; i<nr; i++){
+
+        $pagelink = $('<a  href="#"></a>').append(i+1);
+        $pageItem = $('<li class="page"></li>').append($pagelink);
+        $pageButtonsUl.append($pageItem);
+    }
+
+    return $pageButtonsUl;
+}
+
 
 $(function() {
     $("#logoutLink").click(function(){

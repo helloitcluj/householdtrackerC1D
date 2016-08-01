@@ -4,6 +4,7 @@ import com.helloit.householdtracker.ux.common.IAccountService;
 import com.helloit.householdtracker.ux.common.IExpenseService;
 import com.helloit.householdtracker.ux.common.entities.Expense;
 import com.helloit.householdtracker.ux.common.entities.User;
+import com.helloit.householdtracker.ux.spring.ExpenseListTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-
 @RequestMapping(path="account")
 
 public class AccountController {
@@ -237,11 +237,14 @@ public class AccountController {
     }
 
     @RequestMapping(path="expensesAjax" ,method = RequestMethod.POST)
-    @ResponseBody public List<Expense> expensesAjax() {
+    @ResponseBody public ExpenseListTO expensesAjax(String pageNr) {
 
-        List<Expense> expenses = expenseService.getExpenseList();
+        List<Expense> expenses = expenseService.getExpenseList(pageNr);
+        Integer nrOfExpenses = (int)Math.ceil(expenseService.getNrOfExpenses()/5.0);
 
-        return expenses;
+        ExpenseListTO expenseList = new ExpenseListTO(expenses, nrOfExpenses);
+
+        return expenseList;
     }
 
 

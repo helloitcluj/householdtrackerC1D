@@ -8,10 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA04a718hsjazyV68EOfovbhylY5fASHjE"></script>
     <script src="js/vendor/jquery-3.0.0.min.js"></script>
     <script src="js/local/account.js"></script>
     <script src="js/local/common.js"></script>
+
+
     <title>HouseHoldTracker</title>
 
     <!-- Bootstrap Core CSS -->
@@ -35,6 +37,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,14 +48,60 @@
 <body>
 
 <div id="wrapper">
-    <script type="text/javascript">
-        var containerContent  = helloIt.createMainContainerContent();
-        var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend(helloIt.createMainContainerTitle());
 
-        $('#wrapper').prepend(mainContainer);
-        $('#wrapper').prepend(helloIt.createNavbar());t
-    </script>
 </div>
+<div><input type="text" id="address">
+    <input type="button" value="Get address" id="addressButton">
+</div>
+<script type="text/javascript">
+    var containerContent  = helloIt.createMainContainerContent();
+    var mainContainer = helloIt.createMainContainer().prepend(containerContent).prepend($('<div id="googleMap" style="width:800px;height:380px;"></div>')).prepend(helloIt.createMainContainerTitle());
+
+    $('#wrapper').prepend(mainContainer);
+    $('#wrapper').prepend(helloIt.createNavbar());
+
+
+    var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+    var mapProp = {
+        center:myCenter,
+        zoom:5,
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+    var marker=new google.maps.Marker({
+        position:myCenter,
+    });
+
+    marker.setMap(map);
+    var geocoder = new google.maps.Geocoder();
+
+    //google.maps.event.addDomListener(window, 'load');
+
+$(function(){
+    $('#addressButton').click(function(){
+        geocodeAddress(geocoder, map);
+    });
+
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function (results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+});
+
+
+</script>
 <!-- /#wrapper -->
 
 
